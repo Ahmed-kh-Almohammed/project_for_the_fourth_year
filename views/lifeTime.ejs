@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta charset="UTF-8">
+  <title>LifeTime</title>
+<link rel="stylesheet" href="css/lifeTime.css">
+<link rel="stylesheet" href="css/nav.css">
+<!--<link rel="stylesheet" href="css/bundle.min.css">-->
+
+
+</head>
+<body class="Lbody" id="body"> 
+
+
+  <%- include('./partials/log.ejs') %>
+
+    <% function debug(value) { console.log(value); } %>
+    
+    
+
+<div class="Lcontaner" id="blur"> 
+  
+    <%- include('./partials/nav.ejs') %>
+
+    <!--<p class="Lmiddle">Press the type button to go in a journey through the time of your life !!</p>-->
+    <div class="Lcontent">
+        <a href="#" class="Lk1 LChoose" onclick="Ltoggle()">Type</a>
+    </div>
+
+
+
+    <script>
+      function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
+    
+    </script>
+<!-- partial:index.partial.html -->
+<div class="structure" ng-app="app" ng-controller="HomeController">
+  <!--
+<div class="preloaderimg">
+  <img src="https://wallpaperscraft.com/image/tropics_sea_palm_trees_vacation_84858_2412x1810.jpg" alt="" style="display: none;" />
+  <img src="http://extrawall.net/images/wallpapers/378_1920x1080_abstract_city.jpg" alt="" style="display: none;" />
+  <img src="http://www.churchmilitant.com/images/uploads/2015-06-12-niles-x.jpg" alt="" style="display: none;"/>
+</div>
+-->
+    <% let size=session.lifeTimeSize; %>
+    <%#console.log(ReqBody)%>
+    <%# if(size===undefined||ReqBody=='NULL' ){size=0;}for( let i=0; i <size-1 ; i++ ) { %>
+    <%# allArray.forEach(all=> { %>
+
+
+    <%# moves form %>
+    <% if(ReqBody.gender==='moves') { %>
+      <% let Lheader="Moves" %>
+    <% for(let i=0;i<cityInfo.length;i++){%>
+    <form class="Lform Lformall Lf1"  action="/lifeTime/delete" method="post">
+      <label class="Llabel Llabeldate" for="date">date</label>
+      <input type="text" class="LItext LIdate"  name="dateStart" value="">
+      <script>
+        document.querySelectorAll(".LIdate")[<%=i%>].value=formatDate("<%=cityInfo[i].dateStart %>")
+      </script>
+      <label class="Llabel Lnamelabel " for="name">name </label>
+      <input type="text" class="LItext  LInameMoves" name="name" value="<%= cityInfo[i].name %>">
+      <!--<img class="Limge" src="photo_2023-07-17_19-41-37.jpg">-->
+
+      <label class="Llabel Ldetaileslabel" for="details">details</label>
+      <textarea type="text" class="LItext Ltextarea LtextareaMoves" name="details" value="<%=cityInfo[i].details%>"><%=cityInfo[i].details%></textarea>
+      <label class="Llabel Lupdatelabel LUMoves" for="Update" ></label>
+      <div class="fa Ldivupmov">
+        
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+        <input name="updateMoves" type="submit" class="fa LSMoves" value="<%= cityInfo[i].id %>">
+                    <% }else {%>
+                      
+        <input name="updateMoves" type="submit" class="fa LSMoves" value="<%= cityInfo[i].id %>" disabled>
+        <% } %>
+
+      </div>
+      <label class="Llabel LlabeldeleteMoves" for="Delete"></label>
+      <div class="Ldivmove fa">
+
+        <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+                  
+        <input name="deleteMoves" class="LIdelMov" type="submit" value="<%= cityInfo[i].id %>" >
+                    <% }else {%>
+                      
+        <input name="deleteMoves" class="LIdelMov" type="submit" value="<%= cityInfo[i].id %>" disabled>
+        <% } %>
+      </div>
+    </form>
+    
+
+    <% }%>
+
+<div class="Ltimeline">
+  <div class="Lall" >
+<% for(let j=0;j<cityInfo.length;j++){%>
+    <div class="Lspace" style="left: <%=(j+1)*150%>px "> 
+      <div class="Lcir">
+          <div class="Lbcir" ></div>
+          <div class="Lscir"><p class="Ldate"><%=cityInfo[j].dateStart %></p></div>
+      
+      </div>
+    </div>
+<% }%>
+  </div>
+</div>
+
+    <% } %>
+
+
+
+    <%# searches form %>
+
+    <% if(ReqBody.gender==='searches') { %>
+    
+      <% let Lheader="searches"%>
+
+    <%for(let i=0;i<book.length;i++)if(book[i].libType==1){%>
+      console.log(book)
+    <form class="Lform Lf2" action="/lifeTime/delete" method="post" id="<%= book[i].libraryId %>" enctype="multipart/form-data">
+      <label class="Llabel Llabeldate" for="date">date</label>
+      <input type="text" class="LItext LIdate"  name="date" value="">
+      <script>
+        document.querySelectorAll(".LIdate")[<%=i%>].value=formatDate("<%=book[i].libDate %>")
+      </script>
+      <label class="Llabel Lnamelabel" for="name">name </label>
+      <input type="text" class="LItext  LInameMoves LInamesearch" name="name" value="<%=book[i].libName %>">
+      
+      <p class="Lalink" style="top: 96px;
+      position: relative;"><a download href="<%=book[i].link %>" style="color:#573820 !important;border-bottom: 2px solid #573820;" >click to download the researches  :<%=book[i].link %> </a></p>
+      
+      <input type="file" name="link" class="Llink">
+
+      <label class="Llabel Ldetaileslabel" for="details">details</label>
+      <textarea type="text" class="LItext Ltextarea LtextareaMoves" name="details" value="<%=book[i].libDetails%>"><%=book[i].libDetails%></textarea>
+      <label class="Llabel Lupdatelabel LUMoves" for="Update" ></label>
+      <div class="fa Ldivupmov">
+
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+        <input name="updatesearches" type="submit"  class="fa LSMoves" value="<%= book[i].libraryId %>">
+                    <% }else {%>
+                      
+        <input name="updatesearches" type="submit"  class="fa LSMoves" value="<%= book[i].libraryId %>" disabled>
+        <% } %>
+      </div>
+      <label class="Llabel LlabeldeleteMoves" for="Delete"></label>
+      <div class="Ldivmove fa">
+
+        <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+                  
+        <input name="deleteSearches" type="submit"  class="LIdelMov" value="<%= book[i].libraryId %>">
+                    <% }else {%>
+                      
+        <input name="deleteSearches" type="submit"  class="LIdelMov" value="<%= book[i].libraryId %>" disabled>
+        <% } %>
+      </div>
+    </form>
+   
+
+    <%}%>
+
+<div class="Ltimeline">
+  <div class="Lall" >
+<% let k=0 %>
+    <%for(let j=0;j<book.length;j++)if(book[j].libType==1){%>
+<% k=k+1 %>
+   <div class="Lspace" style="left:<%=k*150%>px "> 
+    <div class="Lcir">
+        <div class="Lbcir"></div>
+        <div class="Lscir"><p class="Ldate"><%=book[j].libDate %></p></div>
+    </div>
+  </div>
+      <% } %>
+  </div>
+</div>
+
+                                  <% } %>
+
+
+    <%# searches form %>
+
+    <% if(ReqBody.gender==='books' ) { %>
+
+      
+      <% let Lheader="books"%>
+
+    <%for(let i=0;i<book.length;i++)if(book[i].libType==2){%>
+     <!--<% console.log(book[i])%>-->
+      <form class="Lform Lf3" action="/lifeTime/delete" method="post" id="<%= book[i].libraryId %>"    enctype="multipart/form-data">
+      <label class="Llabel Llabeldate" for="date">date</label>
+      <input type="text" class="LItext LIdate"  name="date" value="">
+      <script>
+        document.querySelectorAll(".LIdate")[<%=i%>].value=formatDate("<%=book[i].libDate %>")
+      </script>
+      <label class="Llabel Lnamelabel" for="name">name </label> 
+      <input type="text" class="LItext LInameMoves LInamesearch" name="name" value="<%=book[i].libName %>">
+      
+      <p class="Lplink">link of book : <%=book[i].link %></p>
+      <input type="file" name="link" class="Llink">
+
+    <!--
+        <input type="text" class="LItext" name="link" value="<%#=book[i].link%>"> //
+      <input type="file" class="Lfile" name="link" >
+      <label class="Llabel Lfilelabel" for="file" >
+          <i class="fa fa-plus" ></i>
+          Add photos
+      </label>
+    -->
+      <label class="Llabel Ldetaileslabel" for="details">details</label>
+      <textarea type="text" class="LItext Ltextarea LtextareaMoves" name="details" value="<%=book[i].libDetails%>"><%=book[i].libDetails%></textarea>
+      <label class="Llabel Lupdatelabel LUMoves" for="Update" ></label>
+      <div class="fa Ldivupmov">
+
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+        <input name="updateBook" type="submit" class="fa LSMoves"  value="<%= book[i].libraryId %>">
+                    <% }else {%>
+                      
+        <input name="updateBook" type="submit" class="fa LSMoves"  value="<%= book[i].libraryId %>" disabled>
+        <% } %>
+      </div>
+      <label class="Llabel LlabeldeleteMoves" for="Delete"></label>
+      <div class="Ldivmove fa">
+
+        <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+                  
+        <input name="deleteSearches" type="submit"  class="LIdelMov" value="<%= book[i].libraryId %>">
+                    <% }else {%>
+                      
+        <input name="deleteSearches" type="submit"  class="LIdelMov" value="<%= book[i].libraryId %>" disabled>
+        <% } %>
+      </div>
+    </form>
+
+
+
+    <%}%>
+<div class="Ltimeline">
+  <div class="Lall" >
+    <% let k=0%>
+    <%for(let j=0;j<book.length;j++)if(book[j].libType==2){%>
+    <% k=k+1 %>
+    <div class="Lspace" style="left: <%=k*150%>px "> 
+      <div class="Lcir">
+          <div class="Lbcir" ></div>
+          <div class="Lscir"><p class="Ldate"><%=book[j].libDate %></p></div>
+      </div>
+    </div>
+      <% } %>
+  </div>
+</div>
+
+                                            <% } %>
+
+                                           
+                                            
+    <%# Education form %>
+
+    <% if(ReqBody.gender==='education' ) { %>
+    
+      <% let Lheader="education"%>
+
+    <%for(let i=0;i<Edu.length;i++){%>
+    <form  class="Lform Lf4" action="/lifeTime/delete" method="post">
+      <label class="Llabel Lstartdate " for="sdate">start date</label>
+      <input type="text" class="LItext LIdate LIsdate" name="Sdate" value="">
+      <script>
+        document.querySelectorAll(".LIsdate")[<%=i%>].value=formatDate("<%=Edu[i].jobEduDateStart %>")
+      </script>
+      <p class="Ldash"> _ </p>
+      <label class="Lenddate" for="edate">end date</label>
+      <input type="text" class="LItext LIdate LIedate" name="Edate" value="">
+     
+      <script>
+        document.querySelectorAll(".LIedate")[<%=i%>].value=formatDate("<%=Edu[i].jobEduEndDate %>")
+      </script>
+      <label class="Llabel Lnamelabel" for="name">name </label>
+      <input type="text" class="LItext LInameedu" name="name" value="<%=Edu[i].jobEduName %>">
+      <label class="Llabel Lnamelabel " for="details">cityName </label>
+      <input type="text" class="LItext LInameedu" name="city" value="<%=Edu[i].cityName  %>">
+
+      <label class="Llabel Ldetaileslabel" for="name">Details  </label>
+      <textarea type="text" class="LItext Ltextarea Ltextareaedu" name="details" value="<%=Edu[i].jobEduDetails%>"><%=Edu[i].jobEduDetails%></textarea>
+      
+      <input type="text" class="LItext" name="link" value="<%#=book[i].link%>">
+      
+      <label class="Llabel Lupdatelabel LUMoves" for="Update" ></label>
+      <div class="fa Ldivupmov">
+
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+        <input name="updateEdu" type="submit" class="fa LSMoves" value="<%=Edu[i].jobEduId%>">
+                    <% }else {%>
+                      
+        <input name="updateEdu" type="submit" class="fa LSMoves" value="<%=Edu[i].jobEduId%>" disabled>
+        <% } %>
+      </div>
+      <label class="Llabel LlabeldeleteMoves" for="Delete"></label>
+      <div class="Ldivmove fa">
+
+        <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+                  
+        <input name="deleteEdu"  class="LIdelMov" type="submit" value="<%=Edu[i].jobEduId%>">
+                    <% }else {%>
+                      
+        <input name="deleteEdu"  class="LIdelMov" type="submit" value="<%=Edu[i].jobEduId%>" disabled>
+        <% } %>
+      </div>
+    </form>
+
+
+    <%}%>
+    
+<div class="Ltimeline">
+  <div class="Lall" >
+    <%for(let j=0;j<Edu.length;j++){%>
+    
+    <div class="Lspace" style="left:<%=(j+1)*150%>px "> 
+      <div class="Lcir">
+          <div class="Lbcir" ></div>
+          <div class="Lscir"><p class="Ldate"><%=Edu[j].jobEduDateStart %></p></div>
+      </div>
+    </div>
+
+      <%}%>
+  </div>
+</div>
+    <% } %>
+
+
+    <%# Relation form %>
+
+    <% if(ReqBody.gender==='marrige' ) { %>
+    
+      <% let Lheader="marrige"%>
+
+    <%for(let i=0;i<partner_array.length;i++){%>
+    <form class="Lform Lf5" action="/lifeTime/delete" method="post">
+      
+      <label class="Llabel Llabeldate" for="sdate">relation date</label>
+      <input type="text" class="LItext LIdate" name="date" value="">
+      <script>
+        document.querySelectorAll(".LIdate")[<%=i%>].value=formatDate("<%=partner_array[i].relationDate %>")
+      </script>
+      <label class="Llabel Lnamelabel" class="LItext LIdate" for="name">name </label>
+      <input type="text" class="LItext LInameMoves" name="name" value="<%=partner_array[i].firstName+ '_' + partner_array[i].lastName%>">
+      
+      <label class="Llabel Ldetaileslabel" class="Lstatus" for="status">status</label>
+      <%let string=""; if(partner_array[i].relationType===1){string="Married"}else {string="Divorces"} %>
+      <input type="text" class="LItext Ltextarea Ltextareastatus" name="status" value="<%=string%>">
+      <label class="Llabel Ldetaileslabel" for="details">details</label>
+      <textarea type="text" class="LItext Ltextarea LtextareaMarrige" name="details" value="<%=partner_array[i].partnerDetails%>"><%=partner_array[i].partnerDetails%></textarea>
+       <!--<input type="text" class="LItext" name="link" value="<%#=book[i].link%>">-->
+       <label for="Delete">show user child </label>
+       <input name="show_child" type="submit" value="<%=partner_array[i].userId%>">
+       <% for(let i=0;i<Nchildren.length;i++){ %>
+       <p>
+         <%= Nchildren[i].firstName %>
+       </p>
+       <% } %>
+       <label for="Delete">show not user child </label>
+       <input name="show_child_N" type="submit" value="<%=partner_array[i].userId%>">
+       <% for(let i=0;i<NNchildren.length;i++){ %>
+       <p>
+         <%= NNchildren[i].firstName %>
+       </p>
+       <% } %>
+    <label class="Llabel Lupdatelabel LUMoves" for="Update" ></label>
+    <div class="fa Ldivupmov">
+
+      <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+      <input name="updateRelation" type="submit" class="fa LSMoves" value="<%=partner_array[i].relativeId%>">
+                  <% }else {%>
+                    
+      <input name="updateRelation" type="submit" class="fa LSMoves" value="<%=partner_array[i].relativeId%>" disabled>
+      <% } %>
+    </div>   
+    <label class="Llabel LlabeldeleteMoves" for="Delete"></label>
+    
+    <div class="Ldivmove fa">
+
+      <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+                  
+      <input name="deleteRelation" class="LIdelMov" type="submit" value="<%=partner_array[i].relativeId%>">
+                  <% }else {%>
+                    
+      <input name="deleteRelation" class="LIdelMov" type="submit" value="<%=partner_array[i].relativeId%>" disabled>
+      <% } %>
+    </div>  
+  </form>
+
+     
+
+    <%}%>
+
+<div class="Ltimeline">
+  <div class="Lall" >
+    <%for(let j=0;j<partner_array.length;j++){%>
+    <div class="Lspace" style="left:  <%=(j+1)*150%>px "> 
+      <div class="Lcir">
+          <div class="Lbcir" ></div>
+          <div class="Lscir"><p class="Ldate"><%=partner_array[j].relationDate %></p></div>
+      
+      </div>
+
+    </div>
+      <%}%>
+  </div>
+</div>
+                                                                <% } %>
+
+
+  </div>
+
+  <%# }) %>
+  <%# } %>
+    
+    </div>
+
+   
+    
+</div>
+
+  <div class="Lcontainer">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1 class="Ltitle"></h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div id="Lpopup">
+
+
+    <form action="/lifeTime" method="POST" style="display: flex;
+    flex-wrap: wrap;
+    column-gap: 80px;
+    font-weight: 600;">
+        
+    <label class="Llabel" class="Lradio"> 
+        <input id="moves" type="radio" value="moves" name="gender" class="Lradio_input">
+        <div class="Lradio_radio"></div>
+        <p class="Llabelofradio">moves</p>
+    </label>
+    
+    <label class="Llabel" for="searches" class="Lradio">
+        <input id="searches" type="radio"  value="searches" name="gender" class="Lradio_input" >
+        <div class="Lradio_radio"></div>
+        <p class="Llabelofradio">researches</p>
+    </label>
+    
+    <label class="Llabel" for="books" class="Lradio">
+        <input id="books" type="radio"  value="books" name="gender" class="Lradio_input" checked>
+        <div class="Lradio_radio"></div>
+        <p class="Llabelofradio">books</p>
+    </label>
+
+<!--    <label class="Llabel" for="achivments" class="Lradio">
+        <input id="achivments" type="radio"  value="achivments" name="achivments" class="Lradio_input">
+        <div class="Lradio_radio"></div>
+        achivments
+    </label>
+-->
+
+    <!--memory-->
+    <label class="Llabel" for="education" class="Lradio">
+        <input id="education" type="radio"  value="education" name="gender" class="Lradio_input">
+        <div class="Lradio_radio"></div>
+        <p class="Llabelofradio">education</p>
+    </label>
+    
+    <label class="Llabel" for="marrige" class="Lradio">
+        <input id="marrige" type="radio"  value="marrige" name="gender" class="Lradio_input" >
+        <div class="Lradio_radio"></div>
+        <p class="Llabelofradio">marriage</p>
+    </label>
+
+
+
+    <input name="filter" class="Lfilter" type="submit">
+
+    <i class="fa fa-close"  id="Lclose" onclick="Ltoggle()" ></i>
+    
+    </form>
+</div>
+
+
+
+
+<script>
+  var u=document.querySelector('#body');
+  var menu=document.querySelector('.menu-bar');
+  var q=document.querySelectorAll('.Lform');
+  var k=document.querySelectorAll('.k1');
+  var kk=document.querySelector('.Lk1');
+
+ <% if(ReqBody.gender==='books'){ %>
+    u.style.background = "url(/lifeTimeImgs/Asset1.jpg) center";
+
+    for(let ij=0 ; ij < q.length ; ij++)
+    {
+      q[ij].style.background = "#89483a";
+    }
+    
+    
+    <% } %>
+
+    <% if(ReqBody.gender==='moves'){ %>
+    u.style.background = "url(/lifeTimeImgs/a2.jpg) center" ;
+    menu.style.background="#b7b292";
+    k[0].style.background="#b7b292";
+    k[1].style.background="#b7b292";
+    k[2].style.background="#b7b292";
+    kk.style.background="#b7b292";
+    for(let ij=0 ; ij < q.length ; ij++)
+    {
+      q[ij].style.background = "#6e483c";
+    }
+    <% } %> 
+
+    <% if(ReqBody.gender==='searches'){%>
+    u.style.background = "url(/lifeTimeImgs/plz.png) center ";
+    menu.style.background="#151611";
+    k[0].style.background="#151611";
+    k[1].style.background="#151611";
+    k[2].style.background="#151611";
+    kk.style.background="#151611";
+
+    for(let ij=0 ; ij < q.length ; ij++)
+    {
+      q[ij].style.background = "#b7b393";
+    }
+    document.querySelector('.dropdown-menu ').style.background= "#151611";
+    var kks=document.querySelectorAll('.aNav');
+    for(let i=0;i<kks.length;i++)
+    {
+        kks[i].style.color= "white";
+    }
+    var ttt=document.querySelectorAll('.LItext')
+    for(let i=0;i<ttt.length;i++)
+    {
+      ttt[i].style.color="#272A19";
+    }
+    document.querySelector('.Llink ').style.color="#272A19";
+    document.querySelector('.Lplink').style.color="#272A19";
+
+    <% } %>
+
+    <% if(ReqBody.gender==='education'){ %>
+    u.style.background = "url(/lifeTimeImgs/edu2.png) center";
+    menu.style.background="#89483A";
+    k[0].style.background="#89483A";
+    k[1].style.background="#89483A";
+    k[2].style.background="#89483A";
+    kk.style.background="#89483A";
+for(let ij=0 ; ij < q.length ; ij++)
+    {
+      q[ij].style.background = "#979984";
+    }
+    document.querySelector('.dropdown-menu ').style.background= "#89483A";
+    var kks=document.querySelectorAll('.aNav');
+    for(let i=0;i<kks.length;i++)
+    {
+        kks[i].style.color= "white";
+    }document.querySelector('.userLogedin ').style.color= "white";
+
+    
+    <% } %>
+
+    <% if(ReqBody.gender==='marrige'){ %>
+    u.style.background = "url(/lifeTimeImgs/Aset7.png) ";
+    u.style.backgroundPosition= "center";
+    u.style.backgroundSize= "cover";
+    menu.style.background="#272A19";
+    k[0].style.background="#272A19";
+    k[1].style.background="#272A19";
+    k[2].style.background="#272A19";
+    kk.style.background="#272A19";
+
+    for(let ij=0 ; ij < q.length ; ij++)
+    {
+      q[ij].style.background = "#7a7c6d";
+    }
+    document.querySelector('.dropdown-menu ').style.background= "#272A19";
+    var kks=document.querySelectorAll('.aNav');
+    for(let i=0;i<kks.length;i++)
+    {
+        kks[i].style.color= "white";
+    }document.querySelector('.userLogedin ').style.color= "white";
+    <% } %>
+
+</script>
+
+
+
+<!-- partial -->
+<script src="js/index1.js"></script>
+<script  src="js/lifeTime.js"></script>
+<script src="js/bundle.min.js"></script>
+
+</body>
+</html>
+
+
+<!-- ex, testat.js -->
+

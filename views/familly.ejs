@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/familly.css">
+</head>
+
+<body id="body" class="Fbody">
+  <%- include('./partials/log.ejs') %>
+  <div class="container" id="blur">
+    <%- include('./partials/nav.ejs') %>
+    <%let level=levParam,more=0;%>
+    <%var iii=level;let name=session.userName; %>
+    <section class="treeMainContainer">
+      <div class="treeContainer d_f">
+                 <div class="_NewBranch d_f" >
+             <div class="_treeRoot d_f">
+                 <div class="_treeBranch hasChildren"id="op">
+                     <div class="_treeRaw d_f">
+                         <div class="_treeLeaf d_f">
+                             <div class="t_Data d_f">
+                                 <p class="shortName"> <%=session.firstName%>  </p>
+                             </div>
+                         </div>
+                     </div>
+                    
+        <script type="text/javascript" defer>
+          var vis = new Map()
+          var mp = new Map()
+          var treeMp = new Map()
+          let h, i;
+          h = document.getElementById('op');
+          var array = <%=JSON.stringify(Array.from(mp.entries()))%>;
+          var er= <%-JSON.stringify(Object.fromEntries(treeMp))%>
+          
+          for (const key in er) {
+                treeMp.set(parseInt(key),er[key]);
+          }
+
+          for (let j = 0; j < array.length; j++) {
+            mp.set(array[j][0], array[j][1]);
+          }
+          let counter=0;
+          function dfs(mp, x, prev,place,o) {
+            vis.set({x,o}, 1)
+            
+            let a = document.createElement('div');
+            a.classList.add("_NewBranch", "d_f");
+            prev.appendChild(a)
+              for (let i = 0; i < 2; i++) { 
+                     
+                if (vis.get({x,i}) ===1){continue;}
+                  
+               let b = document.createElement('div');
+                b.classList.add("_treeRoot", "d_f");
+                a.appendChild(b)
+
+               let c = document.createElement('div');
+                 c.classList.add("_treeBranch", "hasChildren");
+                 b.appendChild(c)
+                
+                let d = document.createElement('div');
+                d.classList.add("_treeRaw", "d_f");
+                c.appendChild(d)
+
+                let e = document.createElement('div');
+                e.classList.add("_treeLeaf", "d_f");
+                d.appendChild(e)
+
+
+                if (mp.get(x)[i]) {
+                  let f = document.createElement('div');
+                f.classList.add("t_Data", "d_f");
+                e.appendChild(f)
+                let g = document.createElement('p');
+                g.classList.add("shortName");
+                g.textContent =  treeMp.get(mp.get(x)[i]);
+                f.appendChild(g)
+                
+              dfs(mp, mp.get(x)[i], c,(place*2)+i,i);
+                
+                }
+                else {
+                  let f = document.createElement('div');
+                f.classList.add("t_Data", "d_f");
+                f.classList.add('Ftry')
+                e.appendChild(f)
+                let g = document.createElement('form');
+                g.action="/Familly";
+                g.method="POST";
+                g.classList.add("shortName");
+                c.classList.remove("hasChildren");
+                counter=counter+1;
+                f.appendChild(g)
+                let gg=document.createElement('input');
+                gg.name="name";
+                gg.placeholder="Enter name"
+                let gs=document.createElement('input');
+                gs.type = "submit" ;
+                <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+                                          <% }else {%>
+                                            gs.disabled;
+                                          <% } %>
+
+                gs.classList.add('try')
+                gs.value = x+"N"+((place*2)+i);
+                gs.name="add";
+                g.appendChild(gg);
+                g.appendChild(gs);
+                }
+              }
+              }
+              
+          
+          dfs(mp, 1, h,1,-1)
+        </script>
+         </div>
+        </div>
+        </div>
+      </div>
+    </section>
+</div>
+<script>
+    /*var ar=document.querySelectorAll(".t_Data");
+    var row=document.querySelectorAll("._treeBranch");
+    for(let i=0;i<ar.length;i++)
+    {
+        
+        ar[i].addEventListener('click',()=>{
+
+            row[i].classList.add("hasChildren");
+            let ra = document.createElement('div');
+             ra.classList.add("_NewBranch", "d_f");
+            row[i].appendChild(ra)
+            for(let ii=0;ii<2;ii++)
+            {
+                 let rb = document.createElement('div');
+                rb.classList.add("_treeRoot", "d_f");
+                ra.appendChild(rb)
+
+               let rc = document.createElement('div');
+                 rc.classList.add("_treeBranch");
+                 rb.appendChild(rc)
+                
+                let rd = document.createElement('div');
+                rd.classList.add("_treeRaw", "d_f");
+                rc.appendChild(rd)
+
+                let re = document.createElement('div');
+                re.classList.add("_treeLeaf", "d_f");
+                rd.appendChild(re)
+
+                let rf = document.createElement('div');
+                rf.classList.add("t_Data", "d_f");
+                re.appendChild(rf)
+
+                let rg = document.createElement('p');
+                rg.classList.add("shortName");
+                rg.textContent = "null";
+
+
+            }
+           
+        })
+    }*/
+</script>
+</body>
+
+</html>
+<!--
+    عرض شجرة العائلة المستخدم يلي مسجل دخول
+-->

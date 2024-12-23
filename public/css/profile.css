@@ -1,0 +1,262 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.Pbody
+{
+    width: 100%;
+    height: 100vh;
+    background:#CCD2C2;
+}
+.Pdiv{
+    top: 149px;
+    position: relative;
+    display: grid;
+    grid-template-areas:
+        "a b c"
+        "d e f"
+        ". g h"
+        "y p i";
+    column-gap: 150px;
+    padding: 90px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+input,option
+{
+    background-color: transparent;
+	font-size: 20px;
+}form input:focus,
+form input:valid,
+select option:valid,
+select option:focus{
+	outline: 0;
+  border:transparent;
+}
+.menu-bar,.k1
+{
+	background-color: #B8B394  !important;
+}
+li:hover .dropdown-menu {
+	background: #B8B394  !important;
+}
+.navProfile, .navLifetime, .navMemories{
+    color: white !important;
+}
+.logo
+{
+	color: white !important;
+}
+.userLogedin {
+    color: #8e5043e3 !important;
+}
+.cls-1 {
+    fill: #8e5043e3  !important;
+}
+.PuserZ{ 
+
+    background: url(/profileImgs/fnt.png);
+    height: 372px;
+    background-size: cover;
+    background-position: center;
+   
+    width: 430px;
+    /* left: 0; */
+    position: relative;
+    transform: rotate(-10deg);
+}
+.PuserInfo1,.PuserInfo2,.size{
+
+    width: 328px;
+    height: 569px;
+}
+.PuserInfo1::before{
+    position: absolute;
+    content: '';
+    top: -3%;
+    background: url(/profileImgs/magazine.png);
+    background-position: center;
+    background-size: contain;
+    width: 328px;
+    background-repeat: no-repeat;
+    height: 529px;
+    z-index: -1;
+    /* bottom: 100px; */
+    left: 0%;
+}
+
+.PuserInfo2::after{
+    position: relative;
+    display: block;
+    content: '';
+    top: -406px;
+    background: url(/profileImgs/magazine.png);
+    background-position: center;
+    background-size: contain;
+    /* width: 328px; */
+    background-repeat: no-repeat;
+    height: 529px;
+    z-index: -1;
+    /* bottom: 100px; */
+    left: 46%;
+    /* direction: rtl; */
+    transform: scaleX(-1);
+}
+.PuserInfo{
+   background: url(/profileImgs/bak1.png);
+    height: 372px;
+    background-size: cover;
+    background-position: center;
+    width: 430px;
+    /* left: 0; */
+    position: relative;
+    transform: rotate(10deg);
+    /* margin-right: 13px;*/
+}
+
+.PuserfeatureHobby{
+
+    grid-area: b;
+}
+.givenAuth{
+    grid-area: c;
+}
+.PuserMoves{
+    grid-area: d;
+}
+.Puserlib{
+    grid-area: e;
+}
+.PuserEduJob{
+    grid-area: f;
+}
+.PuserRelMar{
+    grid-area: g;
+}
+.PuserRelch{
+    grid-area: h;
+}
+.flex{
+    display: flex;
+    align-items: center;
+}
+.shape{
+    position: relative;
+    width: 100px !important;
+    height: 93px !important;
+}
+:root{
+    --shapeColor:#000000
+}
+.shape::before{
+    background: var(--shapeColor);
+    -webkit-mask-image: url(/./profileImgs/shape.svg) !important;
+    mask-image: url(/./profileImgs/shape.svg) !important;
+	width: 99px !important;
+    height: 92px !important;
+    display: flex;
+    /* padding: 14px; */
+    position: absolute;
+    content:'';
+    justify-content: center;
+     align-items: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.Pflower::after{
+    position: absolute;
+    content: '';
+    width: 150px;
+    height: 150px;
+    background: url(/./profileImgs/flwer.png) ;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    right: 0;
+    bottom: 0;
+}
+.Pone{
+    padding: 22px;
+    position: relative;
+    top: 15px;
+    font-size: 20px;
+    line-height: 1.5;
+}
+/*first one*/
+.vscomp-wrapper
+{
+    color: #8E5043 !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+}
+.vscomp-toggle-button{
+    border: unset !important;
+}
+.vscomp-arrow::after
+{
+    border: unset !important;
+}
+.vscomp-clear-icon::before{
+    background-color: transparent !important;
+}
+.vscomp-clear-icon::after{
+    background-color: transparent !important;
+}
+.vscomp-toggle-button
+{
+    width: 100% !important;
+}
+.colorone
+{
+    color: #8E5043 !important;
+    font-weight: 600 !important;
+}
+.colortwo{
+    color: #6C746C !important;
+    font-weight: 600 !important;
+}
+#userFirstName{
+    width: 60px !important;
+}
+#userSecondName{
+    width: 54px !important;
+}
+#birthDate
+{
+    width: 90px !important;
+}
+#password
+{
+    margin-left: 10px;
+}
+#Female
+{
+    accent-color: #8E5043;
+}
+.PuserfeatureHobby,.PuserMoves,.givenAuth,.Puserlib,.PuserEduJob,.PuserRelMar,.PuserRelch,.addCity,.addCityHis,.addCityHisLink
+{
+    padding: 22px;
+    position: relative;
+    top: 15px;
+    font-size: 20px;
+    line-height: 1.5;
+}
+.hideThis{
+    width: 100px;
+    height: 93px;
+    top: -66px;
+    position: relative;
+    cursor: pointer;
+    z-index: 3;
+}
+.zindx{
+    z-index: 2;
+    top: 15px;
+    font-size: 18px;
+    position: relative;
+    width: 101px;
+
+}

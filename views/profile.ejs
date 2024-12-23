@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/virtual-select.min.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <title>Document</title>
+</head>
+
+
+<body id="body" class="Pbody">
+  <%- include('./partials/log.ejs') %>
+    <div class="container" id="blur">
+    <%- include('./partials/nav.ejs') %>
+    <div class="Pdiv">
+<% console.log(session) %>
+   
+      <div class="PuserInfo1" style="grid-area: a;">
+    <div class="PuserInfo" style="left: 40px;">
+      <div class="PuserZ" style=" grid-area: a;">
+      <form  class="Pone" action="/profile" method="post">
+        <input class="colorone" id="userFirstName" type="text" name="userFirstName" value="<%=kuser.firstName%> " placeholder="FirstName">
+       <input class="colorone" id="userSecondName" type="text" name="userSecondName" value="<%=kuser.lastName%> " placeholder="SecondName">
+         is a beautiful <%if(kuser.gender===1){%>girl<%}else{%>man<%}%>,
+         <br>
+         <div class="flex">
+         <p>was born in </p><div class="birthPlace">
+          <select class="sample-select" name="birthSelect">
+     <option selected="true" style='display: none' value="null"></option>
+            <% for(let i=0;i<city.length;i++){ %>
+              <% if(kuser.birthPlace===city[i].cityId) {%>
+                
+              <option value=<%=city[i].cityId%> selected><%=city[i].cityName%></option>
+                <%}else{%>
+                  
+              <option value=<%=city[i].cityId%>><%=city[i].cityName%></option>
+                  <%}%>
+              <% } %>
+          </select>
+        </div>
+</div>
+        it was <input class="colortwo" id="birthDate" type="text" name="birthDate"  placeholder=" birthDate">
+        <script>
+        function formatDate(date) {
+          var d = new Date(date),
+              month = '' + (d.getMonth() + 1),
+              day = '' + d.getDate(),
+              year = d.getFullYear();
+      
+          if (month.length < 2) 
+              month = '0' + month;
+          if (day.length < 2) 
+              day = '0' + day;
+      
+          return [year, month, day].join('-');
+      }
+        document.getElementById("birthDate").value=formatDate("<%=kuser.birthDate%>")
+      
+    
+    </script>
+         when <%if(kuser.gender===1){%>she<%}else{%>he<%}%> took <%if(kuser.gender===1){%>her<%}else{%>his<%}%> first breath
+         your password  <input id="password" class="colorone" type="text" name="password"  value="<%=kuser.userPassword%>" placeholder="password">
+        
+         <div class="flex">
+           <p> Unfortunately, </p> <p class="colorone" style="margin-left: 8px;margin-right: 8px;"><%=kuser.firstName%></p> <p> died in</p>
+           </div>
+           <div class="flex">
+            <div class="deathPlace">
+          <select class="sample-select" name="deathSelect"  data-search="true">
+     <option selected="true" style='display: none' value="null"></option>
+            <% for(let i=0;i<city.length;i++){ %>
+              <%if(kuser.deathPlace===city[i].cityId){%>
+                <option value=<%=city[i].cityId%> selected><%=city[i].cityName%></option>
+
+                <%}else{%>
+                  
+              <option value=<%=city[i].cityId%>><%=city[i].cityName%></option>
+                  <%}%>
+              <% } %>
+          </select>
+        </div>
+        on <input id="deathDate" style="margin-left: 8px;" class="colortwo" value="<%=kuser.deathDate%>" type="text" name="deathDate" placeholder="enter the deathDate">
+     </div>
+     <div class="flex">
+     <p>because of</p> <input style="margin-left: 8px;" id="deathReason" class="colorone" value="<%=kuser.deathReason%>" type="text" name="deathReason" placeholder="enter the deathReason">
+ </div>
+
+          <%if(kuser.gender===1){%>
+            <div class="gend">
+              <label for="Female" >Female</label>
+              <input id="Female" type="radio" name="gender"value="Female" checked >
+              <label for="Male">Male</label>
+              <input id="Male" type="radio" name="gender" value="Male">
+            </div>
+            <%}else{%>
+              <div class="gend">
+                <label for="Female">Female</label>
+                <input id="Female" type="radio" name="gender" value="Female">
+                <label for="Male">Male</label>
+                <input id="Male" type="radio" name="gender" value="Male"checked >
+              </div>
+              <%}%>
+        
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+        <input type="submit" name="updateInfo">
+        <% }else {%>
+        <input type="submit" name="updateInfo" disabled>
+        <% } %>
+      </form>
+    </div>
+    </div>
+  </div>
+
+
+
+  <div class="PuserInfo"style=" grid-area: b;position: relative;
+      top: -240px;left:100px ">
+    <div class="PuserZ Pflower">
+      <div class="PuserfeatureHobby" >
+        <div class="flex">
+          <p class="colorone" style="margin-right: 8px;"><%=kuser.firstName%></p>
+          <p class="colorone">hobbies</p>
+          <br>
+        </div>
+
+        <% userHobby.forEach(feature=> { %>
+          <p class="featureHobby"><%=feature%></p>
+          <% }) %>
+          <br>
+            <div class="featureHobby">
+              <form action="/profile" method="post">
+
+                <p class="colorone">Add more hobbies</p>
+                <div class="flex">
+                <select id="multipleSelect" multiple name="native_select" placeholder="Select one or more" data-search="true"
+                  data-silent-initial-value-set="true">
+                  <% if(hobby!=='NULL' ) hobby.forEach(feature=> { %>
+                    <option value="<%=feature.hobbyId%>">
+                      <%=feature.hobbyName %>
+                    </option>
+
+                    <% }) %>
+                </select>
+                <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  <input type="submit" style="left: -25px; z-index: 2;" name="userhobby">
+             
+                    <% }else {%>  
+                      <input type="submit" style="left: -25px; z-index: 2;" name="userhobby" disabled>
+             
+                    <% } %>
+
+               </div>
+                <label for="MorefeatureHobby">Didn't find your hobby !!</label>
+                <input id="MorefeatureHobby"  placeholder="Write yours" type="text" name="featureHobby">
+                <br>
+                <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+                <input type="submit" name="hobby">
+                  <% }else {%>
+                    <input type="submit" name="hobby" disabled>
+                  <% } %>
+
+                
+              </form>
+            </div>
+
+      </div>
+      </div>
+      </div>
+
+  <div class="PuserInfo" style="grid-area: c;position: relative;
+    ">
+    <div class="PuserZ">
+        <div class="givenAuth">
+ <div class="flex" style="flex-direction: row; flex-wrap: wrap; max-width: 400px;">
+              
+          <% console.log(given);for(let i=0;i<given.length;i++){ %>
+               <div class="shape">
+            
+              <div class="flex zindx" style="flex-direction: column; row-gap: 5px; ">
+              <p><%=given[i].name%></p>
+              <p><%=given[i].PI%></p>
+
+
+            </div>
+              <form  action="/index" method="POSt">
+              <input class="hideThis" type="submit" style="color: transparent;" value=<%=session.userId+"B"+given[i].id+"B"%> name="given">
+            </form>
+            </div>
+
+          
+            <% } %>
+            </div>
+<br>
+            <div class="addAuth">
+              <p class="colortwo">Give someone a privilige</p>
+              <form action="/profile" method="POSt">
+                 <select class="sample-select"  name="userSelect">
+                  <option selected value="null">Choose a user</option>
+            
+                <% for(let i=0;i<users.length;i++){ %>
+                <option value=<%=users[i].userId%>><%=users[i].firstName%></option>
+                <% } %>
+              </select>
+              <select class="sample-select" name="authSelect">
+                <option selected value="null">Choose a privilge</option>
+                <% for(let i=0;i<auth.length;i++){ %>
+                  <% if(auth[i].name==="memory"){continue;}%>
+                  <% if(auth[i].name==="Admin"){%>
+                    <% if(session&&session.dD){ %>
+                    <option value=<%=auth[i].id%>><%=auth[i].name%></option>
+                    <%}else {continue;}%>
+                    <% } else {%>
+                  <option value=<%=auth[i].id%>><%=auth[i].name%></option>
+                  <% } %>
+                  <% } %>
+              </select>
+            
+              <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                              
+                <input type="submit" name="giveauth" value="submit">
+                    <% }else {%>
+                      
+                <input type="submit" name="giveauth" value="submit" disabled>
+                    <% } %>
+            
+              </form>
+             
+            </div>
+            <% if(session&&session.suc){ %>
+              <p style="background: slategrey;
+              color: white;
+              position: relative;
+              text-align: center;
+              bottom: 0;
+              text-decoration: none;
+              width: 90%;
+              height: 100px;
+              height: 39px;
+              margin-top: 13px;
+              display: block;
+              "><%= session.suc %></p>
+              <% session.suc=undefined%>
+              <% } %>
+      </div>
+      </div>
+    </div>
+
+
+    <div class="size" style="grid-area: d;">
+  <div class="PuserInfo" style="/*left: -100px;*/">
+    <div class="PuserZ">
+    <div class=" PuserMoves">
+      <div class="flex">
+      <p class="colorone" style="margin-right: 8px;"><%=kuser.firstName%></p>
+      <p>travelled To :</p>
+    </div>
+    <br>
+
+      <form action="/profile" method="post">
+        <div class="flex">
+        <p>Select the city</p>
+        <select class="sample-select" id="Select" name="cityId" data-search="true">
+          <% if(city!=='NULL' ) for(let i=0;i<city.length;i++) {%>
+            <option value="<%=city[i].cityId %>">
+              <%=city[i].cityName %>
+            </option>
+            <% } %>
+        </select>
+      </div>
+      <br>
+      <div class="flex">
+        <p>on</p>
+        <input type="text" name="dateMove" style="position: relative;left: 8px;" placeholder="write the date">
+      </div>
+      <div class="flex">
+        <p>wanna add some details ! </p>
+        <input type="text" style="position: relative; left: 8px;" name="detailsMove" placeholder="details">
+      </div>
+      <br>
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+        <input type="submit" name="moves">
+            <% }else {%>
+              
+        <input type="submit" name="moves" disabled>
+            <% } %>
+
+      </form>
+    </div>
+    </div></div></div>
+
+
+
+
+
+    <div class="size" style="grid-area: e;">
+  <div class="PuserInfo" style="top: -100px;left: 80px;">
+    <div class="PuserZ">
+    <div class="Puserlib">
+      
+      <form action="/profile" method="post">
+        
+      <div class="flex">
+        <p class="colorone" style="margin-right: 8px;"><%=kuser.firstName%></p>
+        <p class="colorone">writed a </p>
+      </div>
+      <br>
+      <div class="flex">
+        <select class="sample-select" id="Select" name="libId" data-search="true">
+          <option value="0" class="colorone">research/book</option>
+          <option value="1">research</option>
+          <option value="2">book</option>
+        </select>
+        <p class="colorone"style="margin-right: 8px;">on</p>
+        <input type="text" name="dateLib" placeholder="put the date">
+      </div>
+      <br>
+      <div class="flex">
+        <p style="margin-right: 8px;">with a name :</p>
+        <input type="text" name="libName"placeholder="put the name">
+      </div>
+      <br>
+      <div class="flex">
+        <p style="margin-right: 8px;">it is about :</p>
+        <input type="text" name="detailsLib" placeholder="put the detailes">
+      </div>
+      <br>
+      <div class="flex">
+        <p style="margin-right: 8px;">its link :</p>
+        <input type="text" name="linkLib" placeholder="put the link">
+      </div>
+      <br>
+
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+          <input type="submit" name="lib">
+              <% }else {%>
+                
+          <input type="submit" name="lib" disabled>
+              <% } %>
+  
+      </form>
+    </div>
+    </div>
+    </div></div>
+
+
+
+    <div class="size" style="grid-area: f;">
+    <div class="PuserInfo2">
+  <div class="PuserInfo"style="position: relative; 
+      top:100px;left: -17px;">
+    <div class="PuserZ">
+    <div class="PuserEduJob" >
+      <form action="/profile" method="post">
+      <div class="flex">
+        <p class="colorone" style="margin-right: 8px;"><%=kuser.firstName%></p>
+        <select class="sample-select" id="Select" name="EduId" data-search="true">
+          <option value="0" class="colorone">studied/worked</option>
+          <option value="1">studied</option>
+        <option value="2">worked</option>
+      </select>
+      </div>
+      <br>
+      <div class="flex">
+        <p style="margin-right: 8px;">at: </p>
+        <input type="text" placeholder="put the name" name="eduJobName">
+      </div>
+      <br>
+      <div class="flex">
+      <div>
+      <div class="flex">
+        <p  style="margin-right: 8px;">from: </p>
+        <input type="text" name="dateJobEduStart" placeholder="put the start date">
+      </div>
+      <br>
+      <div class="flex">
+        <p  style="margin-right: 8px;">to: </p>
+        <input type="text" name="dateJobEduEnd" placeholder="put the start date">
+      </div>
+    </div>
+    <div>
+      <p>and it is located in</p>
+      <select class="sample-select" id="Select" name="cityId" data-search="true">
+        <% city.forEach(city=> { %>
+          <option value="<%=city.cityId %>">
+            <%=city.cityName %>
+          </option>
+
+          <% }) %>
+      </select>
+    </div>
+  </div>
+      <br>
+      <div class="flex">
+        <p  style="margin-right: 8px;">its details </p>
+        <input type="text" name="detailsJobEdu" placeholder="put some details">
+      </div>
+      <br>
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+          <input type="submit" name="Edu">
+              <% }else {%>
+                
+          <input type="submit" name="Edu" disabled>
+              <% } %>
+  
+      </form>
+    </div>
+    </div>
+    </div></div></div>
+
+
+   <div class="size" style="grid-area: g;">
+  <div class="PuserInfo" style="left: -230px;top: -90px;">
+    <div class="PuserZ">
+    <div class="PuserRelMar">
+      
+      <form action="/profile" method="post">
+      <div class="flex">
+        <p class="colorone" style="margin-right: 8px;"><%=kuser.firstName%></p>
+        <p class="colorone" style="margin-right: 8px;">relation is </p>
+      </div>
+      <br>
+      <div class="flex">
+
+          <select class="sample-select" id="Select" name="TypeMarriageSelect" data-search="true">
+          <option value="0">married/divorse</option>
+          <option value="1">marriage</option>
+          <option value="2">divorse</option>
+        </select>
+
+        <p style="margin-right: 8px;">with</p>
+          <input type="text" name="firstname" style="width: 100px;" placeholder="first name">
+          <input type="text" name="lastname" placeholder="second name ">
+        
+      </div>
+      <br>
+      <div class="flex">
+        <p style="margin-right: 8px;">on</p>
+          <input type="text" name="partnerDate" placeholder="put the date">
+
+      </div>
+      <br>
+      <div class="flex">
+          <input type="text" name="partnerDetails" placeholder="add detailes about it !" style="margin-right: 20px;">
+          
+
+      
+        
+          <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+            <input type="submit" name="partner">
+                <% }else {%>
+                  
+            <input type="submit" name="partner" disabled>
+           
+                <% } %>
+    </div>
+        </form>
+      </form>
+    </div>
+    </div>
+    </div></div>
+
+
+    <div class="size" style="grid-area: h;">
+
+
+
+
+  <div class="PuserInfo" style="position: relative; 
+      left: -200px;">
+    <div class="PuserZ Pflower">
+    <div class="PuserRelch">
+      <form action="/profile" method="post">
+        <select id="Select" name="partnerId" data-search="true">
+          <%if(partner_array!=='NULL')for(let i=0;i<partner_array.length;i++){ %>
+            <option value="<%=partner_array[i].userId %>">
+              <%=partner_array[i].firstName %>
+            </option>
+            <%} %>
+        </select>
+        <input type="submit" name="Tpartner">
+        <select id="Select" name="Tusers" data-search="true">
+          <%if(tusers!==undefined)for(let i=0;i<tusers.length;i++){ %>
+            <option value="<%=tusers[i].userId %>">
+              <%=tusers[i].firstName %>
+            </option>
+            <%} %>
+        </select>
+        <input type="submit" name="T_Child">
+        <form action="/profile" method="post">
+          <label for="childrName">name</label>
+          <input type="text" name="childrName">
+          <label for="childrDate">date</label>
+          <input type="text" name="childrDate">
+          <label for="childrDetails">childrDetails</label>
+          <input type="text" name="childrDetails">
+          <input type="submit" name="childr">
+        </form>
+      </form>
+      </form>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    
+    <div class="size" style="grid-area: i;right: 150px;
+    position: relative;">
+      <% if(session&&session.dD) {%>
+      <div class="PuserInfo" style="top: -100px;left: 80px;">
+        <div class="PuserZ">
+        <div class="addCity">
+          
+          <form action="/profile" method="post">
+            
+          <div class="flex">
+            <p class="colorone" style="margin-right: 8px;"><%=kuser.firstName%></p>
+            <p class="colorone">Add a city</p>
+          </div>
+          <br>
+          <div class="flex">
+            <p style="margin-right: 8px;">with a name :</p>
+            <input type="text" name="cityName"placeholder="put the name">
+          </div>
+            
+              <input type="submit" name="addD">
+              
+      
+          </form>
+          <% if(session&&session.suc3){ %>
+            <p style="background: slategrey;
+            color: white;
+            position: relative;
+            text-align: center;
+            bottom: 0;
+            text-decoration: none;
+            width: 90%;
+            height: 100px;
+            height: 39px;
+            margin-top: 13px;
+            display: block;
+            "><%= session.suc3 %></p>
+            <% session.suc3=undefined%>
+            <% } %>
+        </div>
+        </div>
+        </div>
+        <% } %>
+      </div>
+    
+      <div class="size" style="grid-area: p;    right: 53px;
+      top: -90px;
+      position: relative;">
+        <% if(session&&session.dD) {%>
+        <div class="PuserInfo" style="top: -100px;left: 80px;">
+          <div class="PuserZ">
+          <div class="addCityHis">
+            
+            <form action="/profile" method="post">
+              
+            <div class="flex">
+              <p class="colorone" style="margin-right: 8px;"><%=kuser.firstName%></p>
+              <p class="colorone">Add a city History</p>
+            </div>
+            <br>
+            <div class="flex">
+              <p style="margin-right: 8px;">1choose a city :</p>
+              <select class="sample-select" id="Select" name="cityId" data-search="true">
+                <% city.forEach(city=> { %>
+                  <option value="<%=city.cityId %>">
+                    <%=city.cityName %>
+                  </option>
+        
+                  <% }) %>
+              </select>
+            </div>
+              <div class="flex">
+                <p style="margin-right: 8px;">Enter the name</p>
+                <input type="text" name="firstname" style="width: 100px;" placeholder="first name">
+              </div>
+              <div class="flex">
+                <p style="margin-right: 8px;">Enter the Date</p>
+                <input type="text" name="Date" style="width: 100px;" placeholder="put the date">
+              </div>
+              <div class="flex">
+                <p style="margin-right: 8px;">Enter the Details</p>
+                <input type="text" name="Details" style="width: 100px;" placeholder="put the details">
+              </div>
+                <input type="submit" name="addDH">
+                
+        
+            </form>
+            <% if(session&&session.suc2){ %>
+              <p style="background: slategrey;
+              color: white;
+              position: relative;
+              text-align: center;
+              bottom: 0;
+              text-decoration: none;
+              width: 90%;
+              height: 100px;
+              height: 39px;
+              margin-top: 13px;
+              display: block;
+              "><%= session.suc2 %></p>
+              <% session.suc2=undefined%>
+              <% } %>
+          </div>
+          </div>
+          </div>
+          <% } %>
+        </div>
+
+
+        <div class="size" style="grid-area: y;right: 84px;
+        position: relative;">
+          <% if(session&&session.dD) {%>
+          <div class="PuserInfo" style="top: -100px;left: 80px;">
+            <div class="PuserZ">
+            <div class="addCityHisLink">
+              
+              <form action="/profile" method="post">
+                
+              <div class="flex">
+                <p class="colorone" style="margin-right: 8px;"><%=kuser.firstName%></p>
+                <p class="colorone">Add a city History Link (Img..)</p>
+              </div>
+              <br>
+              <div class="flex">
+                <p style="margin-right: 8px;">choose a city :</p>
+                <select class="sample-select" id="Select" name="cityHId" data-search="true">
+                  <% cityH.forEach(city=> { %>
+                    <option value="<%=city.historyId %>">
+                      <%=city.historyName %>
+                    </option>
+          
+                    <% }) %>
+                </select>
+              </div>
+                <div class="flex">
+                  <p style="margin-right: 8px;">Enter the Link</p>
+                  <input type="text" name="Link" style="width: 100px;" placeholder="first name">
+                </div>
+                  <input type="submit" name="addDHL">
+                  
+          
+              </form>
+              <% if(session&&session.suc1){ %>
+                <p style="background: slategrey;
+                color: white;
+                position: relative;
+                text-align: center;
+                bottom: 0;
+                text-decoration: none;
+                width: 90%;
+                height: 100px;
+                height: 39px;
+                margin-top: 13px;
+                display: block;
+                "><%= session.suc1 %></p>
+                <% session.suc1=undefined%>
+                <% } %>
+            </div>
+            </div>
+            </div>
+            <% } %>
+          </div>
+
+    </div>
+    </div>
+    <script src="js/virtual-select.min.js"></script>
+    <script src="/js/index1.js"></script>
+    <script>
+      const colors=["#8E5043","#B8B394","#000000","#6C746C","#AFB0AA"]
+      
+      var to= document.querySelectorAll('.shape');
+ for ( let i = 0; i< to.length; i++ ) {
+  let vc=colors[Math.floor(Math.random() * 5)];
+to[i].style.setProperty("--shapeColor",vc)
+}
+
+      VirtualSelect.init({
+          ele: '#multipleSelect',
+          multiple: true,
+          search: true,
+        });
+        VirtualSelect.init({
+          ele: '.sample-select',
+          search: true,
+        });
+    </script>
+</body>
+
+</html>
+<!--
+    عرض اسم الشخص وصورتو وهواياتو والاشخاص يلي مسموح الن يعدلو ببروفايلو
+    تعديل لبيانات الشخص
+-->

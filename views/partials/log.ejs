@@ -1,0 +1,46 @@
+
+<div id="popup6">
+    <div class="headerAdd">
+    <h1>Sign Up</h1>
+  </div>
+   <form action="/" method="POST" class="signup">
+   <input class="input" id="firstName" type="text" name='firstName' placeholder="enter your first name" style="    grid-area: o1;">
+ <input class="input" id="lastName" type="text" name='lastName' placeholder="enter your last name" style="    grid-area: o2;">
+   <input class="input" id="email" type="text" name='email' placeholder="enter your email" style="    grid-area: o3;">
+  <input class="input" id="password" type="text" name='password' placeholder="enter your password" style="    grid-area: o4;">
+ <input name="signup" class="submit" type="submit" style="    grid-area: o5;">
+ <a href="#" onclick="toggle6()" class="submit close" style="    grid-area: o6;">Close</a>
+  </form>
+  <%var msg="";if(session&&session.msg){%>
+    <%  msg=session.msg %>
+    <%}else { %>
+      <%  msg="" %>
+    <% } %>
+  <div class="msg"><%=msg%></div>
+</div>
+<div id="popup5" >
+    <div class="headerAdd" style="    grid-area: o7;">
+        <h1>Log in</h1>
+      </div>
+ <form action="/" method="POST" style="    grid-area: o6;
+ display: grid;
+ grid-template-areas:
+     'o1 o1 o1 o1'
+     'o2 o2 o2 o2'
+     'o3 o3 o4 o4';
+ grid-gap: 40px 40px;">
+   <input class="input" id="email" type="text" name='email' placeholder="enter a valid email" style="    grid-area: o1;">
+   <input class="input" id="password" type="text" name='password' placeholder="enter a valid password" style="    grid-area: o2;">
+ 
+  <input  name="login" class="submit" type="submit" style="    grid-area: o3;">
+  <a href="#" onclick="toggle5()" class="submit close" style="   grid-area: o4;">Close</a>
+   
+  </form>
+  <%var msg="";if(session&&session.msg){%>
+    <%  msg=session.msg %>
+    <%}else { %>
+      <%  msg="" %>
+    <% } %>
+  <div class="msg"><%=msg%></div>
+
+</div>

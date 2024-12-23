@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+  <link rel="stylesheet" href="css/bundle.min.css" />
+  <link rel="stylesheet" href="css/virtual-select.min.css">
+  <link rel="stylesheet" href="css/services.css">
+  <link rel="stylesheet" href="css/nav.css">
+ 
+</head>
+
+
+<body id="Sbody">
+  <%- include('./partials/log.ejs') %>
+    <div class="container" id="blur">
+    <%- include('./partials/nav.ejs') %>
+    <h1 class="Stitle">City history</h1>
+    
+    <!--<h2 class="Sh2city">Search for the history of a city :</h2>-->
+    
+    <div class="Sfiltercityname" >
+    <form action="/services" method="POST">
+      <label for="cityName">Filter by city Name :  </label>
+      <input id="Sinput" type="text" value="cityName" name="cityName">
+      <input type="submit">
+    </form>
+  </div>
+
+  <div class="Scityhistory">
+
+
+      <div class="historyContent">
+    <img class="SImgback" src="new.png">
+        
+
+    <%  if(defaulthistory!='NULL') {  %>
+      <div class="Sallcities">
+        <% console.log(defaulthistory) %>
+        <% for(let i=0;i<defaulthistory.length;i++) { %>
+          <div class="Sbigfor">
+          <div class="Scardat"> <!--cityName-->
+            <img src="/servicesImgs/Asset1.png" class="Simgcorner">
+            <p class="Scitycorner"> <%= defaulthistory[i] %> </p>
+          </div>
+
+    <div class="Soneline">
+    <% for(let j=0;j<defaultLinks[i][0].length;j++) { %>
+      <div class="swiper mySwiper  imagesContainer">
+        <div class="swiper-wrapper">
+
+    <% for(let k=0;k<defaultLinks[i][1][j].length;k++) {%>
+      <div class="swiper-slide Simage">
+    <img src="/servicesImgs/<%=defaultLinks[i][1][j][k].file_src%>"  class="Smm" alt="">
+        </div>
+        
+        <% } %>
+        <p class="Scitydate"><%=defaultLinks[i][0][j].historyDate%></p>
+        
+        <div class="Scitydetailback"> 
+        <p class="Scityname"><%=defaultLinks[i][0][j].historyName %></p><p class="Scitydetail"> <%=defaultLinks[i][0][j].historyDetailes%></p></div>
+        
+        <div class="Sspace22"></div>
+        
+        </div>
+      </div>
+        <% } %>
+
+    </div>
+      <div class="Sspace"></div>
+
+    </div>
+        <% } %>  
+      </div>
+
+
+
+       <% }%>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="Sunder">
+    <h1  class="Stitle">Search for a familly history</h1>
+    <div class="history">
+      <div class="Sfiltercityname Sfilterfamily">
+        <form action="/services" method="POST">
+          
+          <div class="Sallfamilies">
+          <label>Family Name</label>
+          <input id="Sinput" type="text" value="FamilyName" name="FamilyName">
+          
+          
+          <div class="Sstartfamily">
+          <label>Start Date</label>
+          <input id="Sinput" type="text"  value="startdate"name="startdate">
+          </div>
+
+          
+          <div class="Sendfamily">
+          <label>Ending Date </label>
+          <input id="Sinput" type="text"   value="endingdate"  name="endingdate">
+          </div>
+
+          
+          <input type="submit" class="Ssubmit">
+        </div>
+      </form> 
+      </div>
+
+      <div class="Sallpaper">
+        <div class="famillyMovments">
+        <img src="/servicesImgs/Asset3.png" class="Spaper Sp1">
+        <h2 class="Stit Stit1">Familly movments</h2>
+        <% if(names!== 'NULL') {%>
+          <div class="Sdisplay">
+          <% for(let i=0;i<names.length;i++) { %>
+          <p class="Sconpaper"><%=names[i]%></p>
+          <% } %>
+        </div>
+        <% } %>
+
+
+        </div>
+        <br><br><br><br>
+
+
+        <div class="famillyPopularWork">
+          <img src="/servicesImgs/Asset3.png" class="Spaper Sp2">
+            <h2 class="Stit Stit2">Familly work</h2>
+           
+            <% if(works!== 'NULL') {%>
+              <div class="Sdisplay">
+              <% for(let i=0;i<works.length;i++) { %>
+                <p class="Sconpaper"><%=works[i]%></p>
+             <% } %>
+             </div>
+             <% } %>
+             <br><br>
+        </div> 
+        <br><br><br><br>
+
+
+        <div class="famillyPopularSport">
+          <img src="/servicesImgs/Asset3.png" class="Spaper Sp3">
+            <h2 class="Stit Stit3">Familly hobbies</h2>
+            <br>
+            <% if(hobbies!== 'NULL') {%>
+              <div class="Sdisplay">
+              <% for(let i=0;i<hobbies.length;i++) { %>
+                <p class="Sconpaper"><%=hobbies[i]%></p>
+                <% } %>
+              </div>
+              <% } %>
+
+
+             <br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <br><br><br><br>
+  <div class="popularName">
+    <h2 class="Stitle">Search for your name reagions</h2>
+        <form action="/services" method="POST">
+          <div class="Spopular">
+          <label for="popularName">popularName</label>
+          <input id="Sinput" type="text" value="popularName" name="popularName" >
+          <input type="submit">
+          </div>
+        </form>
+        <div class="Namereagions"> 
+         <!--  <h2>Name reagions :</h2>-->
+          <br>
+          
+              <% if(mymap!== 'NULL') { let j=0; var keys = Object.keys(mymap);%>
+              <% keys.forEach(key=>{ %>
+                <div class="Sregion">
+                  <img src="/servicesImgs/Asset4.png" class="Simgregio">
+                  <p class="Spercent"><%=key%>:<%= ((mymap[key] /percnt[j]) *100).toFixed(3)%>&percnt;</p>
+                </div>
+                <% j+=1;}); }%>
+             
+             <br>
+            
+             
+        </div>
+
+        <div class="Sfinally">
+        <h2 class="Stitle">FIND THE FIRST ANCESTOR BETWEEN YOU AND USER :</h2>
+    <form  action="/services" method="POST">
+
+      <div class="Sfinalform">
+        <input id="Sinput" class="firstName" type="text" name='firstName'  placeholder="first name">
+        <input id="Sinput" class="secondName" type="text" name='secondName'  placeholder="second name">
+        <button type="submit">Submit</button><br>
+          <br>
+
+              <% if(term!=='NULL'){%>
+                 <%if(term[0]==0){%>
+                <h4  class="Sno">THERE IS NO ANCESTORS BRTWEEN YOU AND THIS PERSON !!!!  </h4>
+                <% } else if(term[0]==1){%>
+
+                  <img src="/servicesImgs/Asset5.png" class="Simgname">
+                  <div class="Snames">
+                  <p class="Sn"><%= term[2]%></p>
+                  <p class="SSS"> </p>
+                  <p class="Sn"><%= term[3]%></p>
+                </div>
+                <% }else {%>
+                   <h4 class="Sno">NO SUCH A USER EXISTS !!!! </h4>
+                <% }}%>
+             <br>
+
+            </div>
+      </form>
+      </div>
+
+</div>
+</div>
+
+
+
+
+<script src="js/bundle.min.js"></script>
+<script  src="js/services.js"></script>
+<script src="js/virtual-select.min.js"></script>
+<script src="/js/index1.js"></script>
+      
+</body>
+
+</html>
+<!--
+  !عرض مميزات مدينة من خلال اسما
+  !عرض مميزات مدينة عشوائية كحالة افتراضية
+  عرض مميزات مدينة بتاريخ معين !
+    عرض السلف المشترك بين شخصين
+  فلترة المميزات حسب التاريخ
+  بحث عن تاريخ عائلة من خلال اسم العائلة اي عرض تنقلاتا والعمل المشهورة به والرياضات
+  بحث عن مناطق انتشار الاسم فيتم عرض المناطق حسب التكرار 
+
+-->

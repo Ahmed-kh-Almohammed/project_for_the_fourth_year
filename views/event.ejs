@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="css/virtual-select.min.css">
+ <link rel="stylesheet" href="css/event.css">
+ 
+
+ <title>event</title>
+</head>
+
+<body id="body" class="ebody">
+ <%- include('./partials/log.ejs') %>
+ 
+ <div id="popup" class="AddEvent">
+  <div class="headerAdd">
+   <h1>Add event</h1>
+  </div>
+  <script>
+    function formatDate(date) {
+      var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+  
+      if (month.length < 2) 
+          month = '0' + month;
+      if (day.length < 2) 
+          day = '0' + day;
+  
+      return [year, month, day].join('-');
+  }
+
+</script>
+<div class="addBox">
+ <form class="vd" action="/event" method="POST">
+  <div class="one">
+   <label for="addEvent">Add event</label>    
+   <input id="addEvent" class="input" type="text" name="eventName" >
+  </div>
+  <div class="two">
+   <label for="addDate">Add date</label> 
+   <input id="addDate" class="input" type="text" name="eventDate" >  
+  </div>
+  <div class="three">
+   <label for="addDetails">Add details</label> 
+   <input id="addDetails" class="input" type="text" name="eventDetails">  
+  </div>
+   
+   <div class="four">
+  <label for="eventCity">choose the city</label>    
+  <div class="eventCity">
+    <select id="multipleSelect" multiple name="native" placeholder="Native Select" data-search="true" data-silent-initial-value-set="true">
+     <% for(let i=0;i<city.length;i++) { %>
+      <option value="<%=city[i].cityName%>"><%= city[i].cityName%>></option>
+      <% } %>
+     </select>
+  </div>
+  </div>
+  <%if((session&&session.dD)) {%>
+    
+   <input class="submit" name="addevent" type="submit">
+    <% }else {%>
+    
+   <input class="submit" name="addevent" type="submit" disabled>
+    <% } %>
+   <a href="#" onclick="toggle()" class="submit close" style="grid-area: close;">Close</a>
+  </form>
+</div>
+ </div>
+  <div class="container" id="blur">
+  <%- include('./partials/nav.ejs') %>
+
+ <div class="events">
+ <div class="allEvents">
+  <div class="eventFilter">
+   <form action="/event" method="POST">
+    <label for="eventDate">filter event by Date</label>
+    <input id="eventDate" class="input" type="text" placeholder="put the date" name="eventDate">
+    <input name="eventDateFilter" type="submit">
+   </form>
+   <form class="cx" action="/event" method="POST">
+    <label for="eventCity">filter event by City</label>
+    <select id="Select" class="input" name="CitySelect">
+      <option value="0"disabled selected>Choose the city</option>
+     <% for(let i=0;i<city.length;i++) { %>
+     <option value="<%=city[i].cityName%>"><%= city[i].cityName%>></option>
+     <% } %>
+    </select>
+    <input name="eventCityFilter" type="submit" >
+   </form>
+  </div>
+  
+  <div class="eventcontainer">
+  <% if(eventFlterDate!="Null")for(let j=0;j<eventFlterDate.length;j++) { %>
+  <div class="event">
+   
+   <div class="dat" style="    top: 10px;
+   position: relative;">
+   <p class="Edd"></p>
+   <script>
+   document.querySelectorAll(".Edd")[<%=j%>].innerText=formatDate("<%=eventFlterDate[j].eventDate%>")
+  </script>
+  </div>
+   
+   <p id="vc"><%=eventFlterDate[j].eventName%></p>
+   <p id="cv"><%=eventFlterDate[j].eventDetails%></p>
+   
+   <img src="" alt="">
+  <div class="about" style="  position: relative;  top: 36px">
+   <div class="ecity"><% for(let i=0;i<CityEvent[j].length;i++) { %>
+    <p><%= CityEvent[j][i] %>></p>
+   <%} %></div>
+  <div class="sshow">
+   <div class="details">
+    <form action="/eventDetails/<%=eventFlterDate[j].eventId%>" method="POST">
+     <input id="showMore" type="submit" name="showMore" value="Show mare" style="    font-size: 15px;
+     ">
+    </form>
+   </div>
+   
+   <div class="deleteEvent">
+    <form action="/event/<%=eventFlterDate[j].eventId%>?_method=DELETE" method="POST">
+      <%if((session&&session.dD)) {%>
+        <input name="<%=eventFlterDate[j].eventId%>" type="submit" value="delete" style="    font-size: 15px;
+        ">
+         <% }else {%>
+          <input name="<%=eventFlterDate[j].eventId%>" type="submit" value="delete" disabled style="    font-size: 15px;
+     ">
+         <% } %>
+     </form>
+   </div>
+  </div>
+  </div>
+   </div>
+  <% } else { %>
+   <% if(AllEvents!="Null")for(let j=0;j<AllEvents.length;j++) { %>
+    <div class="event">
+     <div class="dat" style="    top: 10px;
+     position: relative;"><p class="Edd1"></p>
+     <%console.log(AllEvents[j].eventDate)%>
+    <script>
+      document.querySelectorAll(".Edd1")[<%=j%>].innerText=formatDate("<%=AllEvents[j].eventDate%>")
+     </script> 
+    </div>
+    <p id="vc"><%=AllEvents[j].eventName%></p>
+     <p id="cv"><%=AllEvents[j].eventDetails%></p>
+     <img src="" alt="">
+     <div class="about" style="position: relative; top: 36px">
+     <div class="ecity"><% for(let i=0;i<CityEvent[j].length;i++) { %>
+      <p><%= CityEvent[j][i] %>></p>
+     <%} %></div>
+     <div class="sshow">
+     <div class="details">
+      <form id="mmyform" action="/eventDetails/<%=AllEvents[j].eventId%>" method="POST">
+       <input id="showMore" type="submit" name="showMore" value="Show more" style="    font-size: 15px;
+       ">
+      </form>
+     </div>
+     <div class="deleteEvent">
+      <form id="formDelete" action="/event/<%=AllEvents[j].eventId%>?_method=DELETE" method="POST">
+        <%if((session&&session.dD)) {%>
+          <input name="<%=AllEvents[j].eventId%>" type="submit" value="delete" style="    font-size: 15px;
+          ">
+           <% }else {%>
+            <input name="<%=AllEvents[j].eventId%>" type="submit" value="delete"style="    font-size: 15px;"  disabled >
+           <% } %>
+
+      
+       </form>
+     </div>
+     </div>
+     </div>
+    </div>
+  <% } }%>
+
+  </div>
+ </div>
+ </div>
+ <%if((session&&session.dD)) {%>
+  <% console.log(session) %>
+  <div class="content" style="top: 204px;">
+    <a href="#" class="ad" onclick="toggle()">Add more events !</a>
+  
+   <% }else {%>
+   
+   <% } %>
+ 
+  </div>
+ </div>
+ 
+ 
+ 
+ </body>
+ <script src="js/index1.js"></script>
+ <script src="js/virtual-select.min.js"></script>
+ <script src="js/event.js"></script>
+ <script>
+  VirtualSelect.init({ 
+  ele: '#multipleSelect' 
+ });
+ </script>
+</body>
+</html>
+<!--
+ حذف حدث للادمن 
+ اضافة حدث فقط للادمن
+ تذكير سنوي
+ فلترة الاحداث حسب التاريخ
+ عرض جميع الاحداث
+ عند الضغط على حدث يجب الانتقال لصفحة تفاصيل الحدث
+-->
+

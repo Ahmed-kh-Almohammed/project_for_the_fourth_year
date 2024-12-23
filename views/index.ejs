@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link rel="stylesheet" href="css/pag.css">
+</head>
+
+
+
+<body id="body">
+    <%- include('./partials/log.ejs') %>
+  
+    <div class="container" id="blur">
+  
+  <%console.log(session)%>
+      <%- include('./partials/nav.ejs') %>
+      <div class="Hcontainer">
+        <div class="Hpage" id="Hfirst">
+            <div class="Hback">
+                <div class="Houter">
+                    <div class="Hcontent">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Hpage" id="Hsecond">
+            <div class="Hfront">
+                <div class="Houter">
+                    <div class="Hcontent">
+                        <img style="background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-attachment: fixed;
+                        width: 262px;
+                        height: 264px;
+                        left: 292px;
+                        top: 15px;
+                        position: relative;" src="/homeImgs/10.png">
+                    </div>
+                </div>
+            </div>
+            <div class="Hback" id="Hthird">
+                <div class="Houter">
+                    <div class="Hcontent">
+                        <div class="Hhelper-class-to-make-bug-visbile">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Hpage" id="Hfourth">
+            <div class="Hfront">
+                <div class="Houter">
+                    <div class="Hcontent">
+                        
+                        <img style="background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-attachment: fixed;
+                        width: 262px;
+                        height: 264px;
+                        left: 292px;
+                        top: 15px;
+                        position: relative;" src="/homeImgs/9.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="Hprev"></div>
+        <div id="Hnext"></div>
+    </div>
+    <div class="textC">
+        <h1>My Archives</h1>
+        <p class="text">find your ancestors and save your family tree..look for all the important events which happen..</p>
+    </div>
+        </div>
+    <script src="js/index1.js"></script>
+  <script src="js/test.js"></script>
+</body>
+
+</html>

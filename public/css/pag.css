@@ -1,0 +1,128 @@
+body{
+    background-image: url('/homeImgs/13.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    transition: all .5s;
+}
+
+.Hcontainer {
+    width: 400px;
+    height: 300px;
+    transform: scale(1.5,1.6);
+    top: 266px;
+    left: -79px;
+    position: relative;
+    z-index: 100;
+    -webkit-perspective: 1300px;
+    perspective: 1300px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.textC{
+    left: 675px;
+    top: 64px;
+    line-height: 2;
+    font-size: 20px;
+    position: relative;
+    overflow: hidden;
+    width: 675px;
+}
+.Hpage {
+	position: absolute;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transition-property: -webkit-transform;
+	transition-property: transform;
+
+	width: 70%;
+	height: 100%;
+	left: 50%;
+	-webkit-transform-origin: left center;
+	transform-origin: left center;
+}
+
+#Hfirst,
+#Hfirst .Hback {
+	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}
+
+#Hfirst {
+    z-index: 102;
+}
+#Hsecond {
+    z-index: 103;
+    transition: transform 0.8s ease-in-out;
+}
+#Hthird .Hcontent {
+    width: 400px;
+}
+#Hfourth {
+    z-index: 101;
+}
+
+.Hpage > div,
+.Houter,
+.Hcontent,
+.Hhelper-class-to-make-bug-visbile {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.Hpage > div {
+	width: 100%;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+.Hback {
+	-webkit-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);
+}
+
+.Houter {
+	width: 100%;
+	overflow: hidden;
+    z-index: 999;
+}
+
+/* problematic class: `.Hcontent` */
+.Hcontent {
+    width: 200%;
+    background: whitesmoke;
+
+}
+
+
+.Hfront .Hcontent {
+	left: -100%;
+}
+
+
+
+/* controls */
+#Hprev, #Hnext {
+    position: absolute;
+    width: 70%;
+    height: 100%;
+    z-index: 999;
+}
+#Hprev:hover, #Hnext:hover {
+    background: rgba(0,0,0,0.05);
+    cursor: pointer;
+}
+#Hprev {
+    top: 0;
+    left: 0;
+}
+#Hnext {
+    top: 0;
+    left: 50%;    background: rgba(0,0,0,0.06)
+}

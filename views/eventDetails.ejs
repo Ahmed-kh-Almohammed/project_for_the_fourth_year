@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/./css/virtual-select.min.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <title>Document</title>
+</head>
+
+
+<body id="body">
+  <%- include('./partials/log.ejs') %>
+    <div class="container" id="blur">
+    <%- include('./partials/nav.ejs') %>
+    <form action="/eventdetails" method="POST">
+      
+    <br>       
+        <input id="updateEvent" type="text" value="<%= event.eventName%>" name="eventName" placeholder="event name">
+        <br> 
+        <input id="updateDate" type="text" value="<%= event.eventDate%>" name="eventDate" placeholder="event date">    
+        <br> 
+        <input id="updateDetails" type="text" value="<%=event.eventDetails%>" name="eventDetails" placeholder="update details">   
+        
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+        <input name="updateevent" type="submit">
+                  <% }else {%>
+                    
+        <input name="updateevent" type="submit" disabled>
+                  <% } %>
+    </form>
+    
+   <p>affected</p>
+  <% po.forEach(human=> { %>
+  <div class="peopleEvent">
+    <p><%= human.user%></p>
+    <p><%= human.city%></p>
+    <p><%= human.date%></p>
+    <p><%= human.story%></p>
+
+    <% human.links.forEach(li=>{%>
+     <img src="/<%= li.file_src%>" alt="" srcset="">
+    <% }) %>
+  </div>
+  <% }) %>
+
+   <p>victim</p>
+
+   <p>victim add</p>
+  
+   <form action="/eventDetails" method="post" enctype="multipart/form-data">
+
+    <!----><select id="Select"  name="user">
+      <% for(let i=0;i<users.length;i++) { %>
+        <option value="<%=users[i].userId%>"><%= users[i].firstName%>></option>
+        <% } %>
+      </select>
+    <input type="file" name="sampleFile" >
+    <label for="story">story victim</label>
+    <input type="text"  name="story" placeholder="story victim">  
+    <label for="date">date victim</label>  
+    <input type="text"  name="date" placeholder="date victim">    
+      <select id="Select"  name="city">
+        <% for(let i=0;i<cityEvent.length;i++) { %>
+          <option value="<%=cityEvent[i].id%>"><%= cityEvent[i].name%>></option>
+          <% } %>
+        </select>
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+  <input type="submit" name="addvictim">
+                    <% }else {%>
+                      
+  <input type="submit" name="addvictim" disabled>
+                    <% } %>
+</form>
+  <!--
+   multiselect user
+   add poto 
+-->
+   <p>victim add</p>
+   <%console.log("ppplplplplplplp",vi); vi.forEach(human=> { %>
+
+      <p><%= human.user%></p>
+      <p><%= human.city%></p>
+      <p><%= human.date%></p>
+      <p><%= human.story%></p>
+  
+      <% human.links.forEach(li=>{%>
+       <img src="/<%= li.file_src%>" alt="" srcset=""> 
+       <form action="/eventDetails/<%=li.linkId %>?_method=DELETE" name="deletePhoto" method="POST">
+
+        <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+                  
+        <input type="submit" name="deletePhoto" >
+                            <% }else {%>
+                              
+        <input type="submit" name="deletePhoto" disabled>
+                            <% } %>
+      </form>
+
+      <% }) %>
+
+    <form action="/eventDetails/<%=human.id %>?_method=DELETE" name="deletevictim" method="POST">
+
+      <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+                  
+      <input type="submit" name="deletevictim" >
+                            <% }else {%>
+                              
+      <input type="submit" name="deletevictim" disabled>
+                            <% } %>
+    </form>
+
+    <% }) %>
+
+
+
+
+  <% for(let i=0;i<cityEvent.length;i++) { %>
+    <div class="cityEvent">
+      <p><%=cityEvent[i].name %></p>
+        <% if(photo[i]!==undefined) for(let j=0;j<photo[i].length;j++){ %>
+          <img src="/<%= photo[i][j].file_src%>">
+          <form action="/eventDetails/<%=  photo[i][j].linkId %>?_method=DELETE" name="deletePhoto" method="POST">
+
+            <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+                  
+            <input type="submit" name="deletePhoto" >
+                                    <% }else {%>
+                                      
+            <input type="submit" name="deletePhoto" disabled >
+                                    <% } %>
+          </form>
+          <% } %>
+
+        <form action="/eventDetails/<%= event.eventId %> " method="post" enctype="multipart/form-data">
+          <input type="file" name="sampleFile" >
+
+          <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+          <input type="submit" name="submit" value="<%= cityEvent[i].id %>">
+                                    <% }else {%>
+                                      
+          <input type="submit" name="submit" value="<%= cityEvent[i].id %>" disabled>
+                                    <% } %>
+          </form>
+      
+          
+
+      <form action="/eventDetails/<%= cityEvent[i].id %>?_method=DELETE" name="deletecity" method="POST">
+
+        <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+                  
+        <input type="submit" name="deletecity" >
+                                    <% }else {%>
+                                      
+        <input type="submit" name="deletecity" disabled>
+                                    <% } %>
+      </form>
+      <form action="/eventDetails/ <%= cityEvent[i].id %> " name="updateCityDetails" method="post">
+        <input name="updateCityDetails" type="text" value="<%=cityEvent[i].details%>">
+
+        <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+        <input type="submit" value="save"  >
+                                      <% }else {%>
+                                        
+        <input type="submit" value="save"  disabled>
+                                      <% } %>
+      </form>
+    </div>
+    <% } %>
+    <div class="addBox">
+      <p >Add a city</p>
+          <form action="/eventDetails" method="post">
+            <div class="eventCity">
+              <select id="multipleSelect" multiple name="native" placeholder="Native Select" data-search="true" data-silent-initial-value-set="true">
+                <% for(let i=0;i<city.length;i++) { %>
+                  <option value="<%=city[i].cityName%>"><%= city[i].cityName%>></option>
+                  <% } %>
+                </select>
+          </div>
+
+          <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+                  
+          <input type="submit" name="addcity">
+                                          <% }else {%>
+                                            
+          <input type="submit" name="addcity" disabled>
+                                          <% } %>
+        </form>
+     </div>
+    </div>
+    <script src="/js/index1.js"></script>
+     <script src="/./js/virtual-select.min.js"></script>
+   <script>
+     VirtualSelect.init({ 
+     ele: '#multipleSelect' 
+   });
+   </script>
+</body>
+</html>
+<!--
+
+
+   
+    عرض الاشخاص المشاركين بهذا الحدث
+    اضافة تاغ للاشخاص المشاركين
+    عرض صور وتفاصيل الحدث الخاص بكل مدينة
+    اضافة لينك للحدث الخاص بمديمة معينة
+    تعديل تفاصيل الحدث الخاص بمدين معينة 
+-->

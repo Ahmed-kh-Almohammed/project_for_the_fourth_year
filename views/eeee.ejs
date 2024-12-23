@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/virtual-select.min.css">
+
+
+  <title>Document</title>
+</head>
+
+<body>
+  <%- include('./partials/nav.ejs') %>
+    <div class="userInfo">
+      <form action="/profile" method="post">
+        <label for="userFirstName">userFirstName</label>
+        <input id="userFirstName" type="text" name="userFirstName" value="Samir" placeholder="enter the userFirstName">
+        <label for="userSecondName">userSecondName</label>
+        <input id="userSecondName" type="text" name="userSecondName" placeholder="enter the userSecondName">
+        <label for="password">password</label>
+        <input id="password" type="text" name="password" placeholder="enter the password">
+        <label for="TrustedPassword">TrustedPassword</label>
+        <input id="TrustedPassword" type="text" name="TrustedPassword" placeholder="enter the TrustedPassword">
+
+
+        <label for="birthPlace">birthPlace</label>
+        <div class="birthPlace">
+          <select id="Select" name="birthSelect">
+            <%# city.forEach(city=> { %>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+              <%# }) %>
+          </select>
+        </div>
+        <label for="deathPlace">deathPlace</label>
+        <div class="deathPlace">
+          <select id="Select" name="deathSelect" data-search="true">
+            <%# city.forEach(city=> { %>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+              <%# }) %>
+          </select>
+        </div>
+        <label for="deathDate">deathDate</label>
+        <input id="deathDate" type="text" name="deathDate" placeholder="enter the deathDate">
+        <label for="birthDate">birthDate</label>
+        <input id="birthDate" type="text" name="birthDate" placeholder="enter the birthDate">
+        <label for="deathReason">deathReason</label>
+        <input id="deathReason" type="text" name="deathReason" placeholder="enter the deathReason">
+        <div class="gend">
+          <label for="Female">Female</label>
+          <input id="Female" type="radio" name="gender">
+          <label for="Male">Male</label>
+          <input id="Male" type="radio" name="gender">
+        </div>
+        <input type="file" name="photo" accept="image/*" required>
+        <button type="submit">Submit</button>
+        <input type="submit" name="updateInfo">
+      </form>
+      <div class="userfeatureHobby">
+        <%# featureHobby.forEach(feature=> { %>
+          <h2 class="featureHobby">featureHobbyName</h2>
+          <%# }) %>
+            <div class="featureHobby">
+              <form action="/profile" method="post">
+
+                <label>select hobbies</label>
+                <select id="multipleSelect" multiple name="native_select" placeholder="Native Select" data-search="true"
+                  data-silent-initial-value-set="true">
+                  <% if(hobby!=='NULL' ) hobby.forEach(feature=> { %>
+                    <option value="<%=feature.hobbyId  %>">
+                      <%=feature.hobbyName %>
+                    </option>
+
+                    <% }) %>
+                </select>
+                <input type="submit" name="userhobby">
+                <label for="MorefeatureHobby">featureHobbyTextMore</label>
+                <input id="MorefeatureHobby" type="text" name="featureHobby">
+                <input type="submit" name="hobby">
+              </form>
+            </div>
+
+      </div>
+      <div class="trustedUsers">
+        <%# trustedUser.forEach(feature=> { %>
+          <h2 class="trustedUser">trustedUserName</h2>
+          <!--<div class="delete">
+            <form action="/profile" method="delete">
+              <input type="submit" name="deleteUser">
+            </form>
+          </div>-->
+
+
+          <%# }) %>
+            <form action="/profile" method="post">
+              <div class="addUser">
+
+                <select id="multipleSelect" multiple name="native_select" placeholder="Native Select" data-search="true"
+                  data-silent-initial-value-set="true">
+                  <%if(tusers!=='NULL')for(let i=0;i<tusers.length;i++){ %>
+                    <option value="<%=tusers[i].userId %>">
+                      <%=tusers[i].firstName %>
+                        <%=" " %>
+              <%=tusers[i].lastName %>
+            </option>
+
+            <%} %>
+          </select>
+
+          <input type=" submit" name="tusers">
+
+              </div>
+            </form>
+      </div>
+    </div>
+    <div class=" userMoves">
+      <h1>Moves</h1>
+      <form action="/profile" method="post">
+        <label for="cityName">Cityname</label>
+        <select id="Select" name="cityId" data-search="true">
+          <% if(Move!=='NULL' ) for(let i=0;i<Move.length;i++) {%>
+            <option value="<%=Move[i].cityId %>">
+              <%=Move[i].cityName %>
+            </option>
+            <% } %>
+        </select>
+        <label for="dateMove">date</label>
+        <input type="text" name="dateMove">
+        <label for="detailsMove">date</label>
+        <input type="text" name="detailsMove">
+        <input type="submit" name="moves">
+      </form>
+    </div>
+    <div class="userlib">
+
+      <h1>lib</h1>
+      <form action="/profile" method="post">
+        <label for="libName">SearchType </label>
+        <select id="Select" name="libId" data-search="true">
+          <option value="1">searches 1</option>
+          <option value="2">books 2</option>
+        </select>
+        <input type="text" name="libName">
+        <label for="dateLib">date</label>
+        <input type="text" name="dateLib">
+        <label for="detailsLib">details</label>
+        <input type="text" name="detailsLib">
+        <label for="linkLib">link</label>
+        <input type="text" name="linkLib">
+        <input type="submit" name="lib">
+      </form>
+    </div>
+    <h1>user edu job</h1>
+    <div class="userEduJob">
+      <select id="Select" name="EduId" data-search="true">
+        <option value="1">edu 1</option>
+        <option value="2">job 2</option>
+      </select>
+      <form action="/profile" method="post">
+        <label for="eduJobName">name</label>
+        <input type="text" name="eduJobName">
+        <label for="dateJobEduStart">date</label>
+        <input type="text" name="dateJobEduStart">
+        <label for="dateJobEduEnd">date</label>
+        <input type="text" name="dateJobEduEnd">
+        <select id="Select" name="cityId" data-search="true">
+          <% city.forEach(city=> { %>
+            <option value="<%=city.cityId %>">
+              <%=city.cityName %>
+            </option>
+
+            <% }) %>
+        </select>
+        <label for="detailsJobEdu">details</label>
+        <input type="text" name="detailsJobEdu">
+        <input type="submit" name="Edu">
+      </form>
+    </div>
+    <h1>relations</h1>
+    <div class="userRelMar">
+      <form action="/profile" method="post">
+        <select id="Select" name="TypeMarriageSelect" data-search="true">
+          <option value="1">marriage 1</option>
+          <option value="2">divorse 2</option>
+        </select>
+        <form action="/profile" method="post">
+          <label for="partnerName">firstname</label>
+          <input type="text" name="firstname">
+          <label for="partnerName">lastname</label>
+          <input type="text" name="lastname">
+          <label for="partnerDate">date</label>
+          <input type="text" name="partnerDate">
+          <label for="partnerDetails">partnerDetails</label>
+          <input type="text" name="partnerDetails">
+          <input type="submit" name="partner">
+        </form>
+      </form>
+    </div>
+    <h1>children</h1>
+    <%# ///^^^^^^^^ %>
+    <div class="userRelMar">
+      <form action="/profile" method="post">
+        <select id="Select" name="partnerId" data-search="true">
+          <%if(partner_array!=='NULL')for(let i=0;i<partner_array.length;i++){ %>
+            <option value="<%=partner_array[i].userId %>">
+              <%=partner_array[i].firstName %>
+            </option>
+            <%} %>
+        </select>
+        <input type="submit" name="Tpartner">
+        <select id="Select" name="Tusers" data-search="true">
+          <%if(tusers!=='NULL')for(let i=0;i<tusers.length;i++){ %>
+            <option value="<%=tusers[i].userId %>">
+              <%=tusers[i].firstName %>
+            </option>
+            <%} %>
+        </select>
+        <input type="submit" name="T_Child">
+        <form action="/profile" method="post">
+          <label for="childrName">name</label>
+          <input type="text" name="childrName">
+          <label for="childrDate">date</label>
+          <input type="text" name="childrDate">
+          <label for="childrDetails">childrDetails</label>
+          <input type="text" name="childrDetails">
+          <input type="submit" name="childr">
+        </form>
+      </form>
+    </div>
+    <script src="js/virtual-select.min.js"></script>
+    <script>
+      VirtualSelect.init({
+        ele: '#multipleSelect'
+      });
+    </script>
+</body>
+
+</html>
+<!--
+    عرض اسم الشخص وصورتو وهواياتو والاشخاص يلي مسموح الن يعدلو ببروفايلو
+    تعديل لبيانات الشخص
+-->

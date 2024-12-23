@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/all.css">
+<nav>
+
+  <div class="menu-bar">
+    <div class="row" style="display: flex;
+    column-gap: 15px
+px
+;">
+      <% let hidd="no",user="guest";if(session&&session.firstName)user=session.firstName,hidd="hidden" %>
+      <h1 class="userLogedin"><%=user%></h1>
+      <h1 class="logo">MyArchive</h1>
+      <li class="toggle" onclick="toggle4()"><a href="#" style="    line-height: 2.3;
+      border: 0;
+      outline: none;
+      cursor: pointer;
+      text-decoration: none;"><i class="fas fa-bars"></i></a></li>
+    </div>
+
+    <ul class="ul">
+      <li><a class="navHome aNav" href="/">Home</a></li>
+
+      <%if(session&&session.userId&&((session.guest&&session.aA)||(session.guest===undefined))) {%>
+
+        <li><a class="navFamilly aNav" href="familly">Familly Tree</a></li>
+        <% }else {%>
+
+          <li><a class="navFamilly aNav notAl" href="index" >Familly Tree</a></li>
+          
+        <% } %>
+      <li>
+        <a class="navPersonal aNav" href="index">Personal</a>
+        <div class="dropdown-menu">
+          <ul>
+            <%if(session&&session.userId&&((session.guest&&session.aA)||(session.guest===undefined))) {%>
+            <li><a class="navProfile aNav" href="profile">Profile</a></li>
+            <% }else {%>
+            <li><a class="navProfile aNav notAl" href="index">Profile</a></li>
+            <% } %>
+
+            <%if(session&&session.userId&&((session.guest&&session.aA)||(session.guest===undefined))) {%>
+
+            <li><a class="navMemories aNav" href="memories">Memories</a></li>
+            <% }else {%>
+
+            <li><a class="navMemories aNav notAl" href="index">Memories</a></li>
+            <% } %>
+
+            <%if(session&&session.userId&&((session.guest&&session.aA)||(session.guest===undefined))) {%>
+
+            <li><a class="navLifetime aNav" href="lifeTime">Lifetime</a></li>
+            <% }else {%>
+
+            <li><a class="navLifetime aNav notAl" href="index">Lifetime</a></li>
+            <% } %>
+          </ul>
+        </div>
+      </li>
+        <li><a class="navServices aNav" href="services">More services</a></li>
+        
+        <%if(session&&session.userId&&((session.guest&&session.aA)||(session.guest===undefined))) {%>
+
+          <li><a class="navEvent aNav" href="event">Event</a></li>
+          <% }else {%>
+  
+            <li><a class="navEvent aNav notAl" href="index">Event</a></li>
+          <% } %>
+    </ul>
+    
+    <div class="msg2"></div>
+    <%var msg1="";if(session&&session.msg1){%>
+    <%  msg1=session.msg1 %>
+    <div class="msg1"><%=msg1%></div>
+    <%}else { %>
+    <%  msg1="" %>
+    <% } %>
+   
+  </div>
+</nav>
+
+<div class="k">
+  <a href="#" class="k1 <%=hidd%> aNav" onclick="toggle6()">signup</a>
+
+  <a href="#" class="k1 <%=hidd%> aNav" onclick="toggle5()">login</a>
+
+  <form action="/" class="k1 " method="POST" style="display: flex;">
+    <label for="logout" style="    position: relative;
+      top: 18px;
+      left: 3px;
+      color: white;
+      font-size: 20px;">Log out
+      <input name="logout" value='logout' style="width: 45px;
+      opacity: 0;
+      height: 40px;
+      top: -20px;
+      position: relative;" type="submit"></label>
+  </form>
+</div>
+<script>
+  var cli=document.querySelector('.notAl');
+  <%if((session&&session.userId===undefined)) {%>
+    session.msg1="";
+  cli.addEventListener('click',()=>{ 
+      <%session.msg1="Sorry!! Ths is Not of your Priviliges "%>
+   console.log("done");
+  })
+   <%}%>
+</script>
+<!--
+  duplicated email
+  forget password
+  login as trusted user
+  
+-->

@@ -1,0 +1,392 @@
+@font-face {
+    font-family: buxton-sketch;
+    src: url(/buxton-sketch.ttf);
+}
+
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: buxton-sketch;
+    font-size: 20px;
+}
+
+#Sbody{
+    background:#b7b393 ;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    transition: all 1s ease;
+    overflow-x: hidden;
+}
+
+.menu-bar,.k1
+{
+	background-color: #8e5043e3  !important;
+}
+.k{
+	z-index: 1 !important;
+}
+li:hover .dropdown-menu {
+	background: #8e5043e3  !important;
+    -webkit-mask-image: url(/./navImgs/9.svg) !important;
+    mask-image: url(/./navImgs/9.svg) !important;
+	width: 161px !important;
+    height: 193px !important;
+	top: -2px !important;
+}
+.navProfile, .navLifetime, .navMemories{
+    color: white !important;
+}
+.logo
+{
+	color: white !important;
+}
+.userLogedin {
+    color: #272A19 !important;
+}
+.cls-1 {
+    fill: #8e5043e3  !important;
+}
+.Scityhistory{
+    position: relative;
+    top: 58px;
+}
+.historyContent{
+    height: 150vh;
+}
+.Sallcities{
+    display: block;
+    overflow: scroll;
+    position: relative;
+    height: 56%;
+    top: 9%;
+}
+::-webkit-scrollbar{
+    display: none;
+}
+.SImgback{
+    width: 39%;
+    position: absolute;
+    left: 30%;
+    opacity: 20%;
+    top: 14%;
+}
+.Stitle{
+    position: relative;
+    top: 100px;
+    font-size: 43px !important;
+    color: #89483A;
+    display: flex;
+    justify-content: center;
+}
+.Sunder{
+    position: relative;
+    top: -40vh;
+}
+
+.Scardat{
+    position: absolute;
+}
+.Simgcorner{
+    position: relative;
+    top: 16vh;
+    left: 13%;
+}
+.Sspace{
+    position: relative;
+    height: 20%;
+}
+.Scitycorner{
+    position: relative;
+    top: 2vh;
+    left: 49%;
+    color: white;
+    font-size: 25px;
+}
+
+.swiper-cards .swiper-slide{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.swiper-3d .swiper-slide-shadow{
+    height: 395px !important;
+    width: 0;
+}
+.swiper-cards .swiper-slide{
+    overflow:visible;
+}
+
+.swiper {
+    width: 25%;
+    height: 420px;
+    left: 13%;
+    display: inline-flex;
+    top: -15px;;
+    margin-right: 38px;
+    margin-top: 117px;
+}
+
+.swiper-wrapper{
+    top: 146px;
+}
+
+.swiper-slide {
+    background: #fff  ;
+    border-radius: 18px ;
+    font-size: 22px ;
+    color: rgb(49, 45, 45) ;
+    position: relative ;
+    z-index: 1 ;
+}
+.swiper-slide.swiper-slide-active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) ;
+}
+.imagesContainer 
+{
+   /* width: 50%;*/
+}
+.Simage
+{
+    background-color: #efe9ce !important;
+    /* width: 30%; */    
+    width: 92% !important;
+    height: 332px !important;
+    box-sizing: border-box;
+    background-position: center !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    border-radius: 0% !important;
+} 
+.Smm
+{
+    position: relative;
+    width: 87% !important;
+    height: 87% !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.Scitydate{
+    position: absolute;
+    top: -8%;
+    width: 126px;
+    overflow: hidden;
+    height: 20px;
+}
+.Scitydetailback{
+    
+    box-sizing: border-box;
+    width: 94% !important;
+    height: 147px !important;
+    background-color: #efe9ce;
+    position: absolute;
+    top: 81%;
+    cursor: auto;
+}
+.Scitydetail{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    position: relative;
+    /*top: 43%;*/
+    overflow-y: scroll;
+    height: 81px;
+    padding: 6px;
+}
+.Scityname{
+    /*top: 83%;*/
+    position: relative;
+    z-index: 5;
+    padding: 6px;
+}
+.Sbigfor{
+    display: block;
+}
+.Soneline{
+    position: relative;
+    left: 4%;
+    overflow-x: scroll;
+    padding: 40px;
+}
+.Sspace22{
+    position: relative;
+    height: 10vh;
+}
+.Sh2city{
+    top: 9%;
+    position: absolute;
+}
+.swiper-wrapper{
+    top: 6%;
+}
+.Sfiltercityname{
+    position: relative;
+    top: 132px;
+    left: 2%;
+    z-index: 100;
+}
+.historyFilter{
+    position: relative;
+    top: 60px;
+    left: 2%;
+}
+
+#Sinput {
+    border: none;
+    background: transparent;
+    border-bottom-color: black;
+    border-bottom-style: double;
+    color: aliceblue;
+    z-index: 10;
+    position: relative;
+}
+.Sstartfamily{
+    position: relative;
+    left: 15%;
+}
+.Sendfamily{
+    position: relative;
+    left: 30%;
+}
+.Sallfamilies{
+    display: inline-flex;
+}
+.Ssubmit{
+    position: relative;
+    left: 36%;
+    z-index: 20;
+}
+.Spaper{
+    position: relative;
+    width: 70%;
+}
+.Sp1{
+    position: relative;
+    left: 5%;
+}
+.Sp2{
+    position: relative;
+    left: 10%;
+}
+.Sp3{
+    position: relative;
+    left: 15%;
+}
+.Sallpaper{
+    display: inline-flex;
+    position: relative;
+    top: 179px;
+    left: 15%;
+
+}
+.Stit{
+    position: absolute;
+    top: 12%;
+    left: 6%;
+}
+.Stit2{
+    left: 30% !important;
+}
+.Stit3{
+    left: 77% !important;
+}
+.Snameanddetail{
+    display: block;
+}
+.famillyPopularWork{
+    position: relative;
+    top: 110px;
+}
+.Sconpaper{
+    position: relative;
+    display: flex;
+    overflow-y: scroll;
+}
+.popularName{
+    position: relative;
+    top: -188px;
+}
+.Sfilterfamily{
+    left: 13% !important;
+}
+.Spopular{
+    position: relative;
+    top: 116px;
+    left: 6%;
+}
+.Sregion{
+    FONT-WEIGHT: 100;
+    position: relative;
+    /* display: inline-flex; */
+    left: 34%;
+    width: 100%;
+}
+.Simgregio{
+    position: relative;
+    width: 100%;
+    top: 13vh;
+    margin-right: 10px;
+}
+.Namereagions{
+    position: relative;
+    display: inline-flex;
+    left: 24%;
+}
+.Spercent{
+    position: relative;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    left: 19%;
+    /* top: 172px;*/
+}
+.Sfinally{
+    position: relative;
+    top: 75px;
+}
+.Sfinalform{
+    position: relative;
+    top: 153px;
+    left: 14%;
+}
+.Sno{
+    position: relative;
+    left: 34%;
+    top: -7vh;
+}
+.Simgname{
+    position: relative;
+    left: 33%;
+    top: -14vh;
+    width: 18%;
+}
+.Snames{
+    position: relative;
+    display: inline-flex;
+    top: -24vh;
+    left: 20%;
+    color: white;
+}
+.SSS{
+    position: relative;
+    width: 12px;
+}
+.Sn{
+    font-size: 25px;
+}
+.Sdisplay{
+    position: relative;
+    display: block;
+    width: 25%;
+    height: 13vh;
+    left: 33%;
+    top: -23vh;
+    overflow-y: scroll;
+}

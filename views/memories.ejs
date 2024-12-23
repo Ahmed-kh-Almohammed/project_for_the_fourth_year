@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/bundle.min.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/virtual-select.min.css">
+
+  <title>Document</title>
+</head>
+
+
+
+
+
+<body id="body">
+  <%- include('./partials/log.ejs') %>
+
+  <div class="container" id="blur">
+
+
+    <%- include('./partials/nav.ejs') %>
+
+    
+    <script>
+      function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
+    
+    </script>
+<% console.log(session)%>
+    <% if(session&&session.suc){ %>
+      <p style="    position: relative;
+      text-align: center;
+      bottom: 0;
+      text-decoration: none;
+      width: 90%;
+      font-size: 40px;
+      height: 50px;
+      top: 150px;
+      margin-left: 51px;
+      display: block;
+      /* background: #89483a; */
+      margin-bottom: 90px;
+      color: #ffbe6b;
+      "><%= session.suc %></p>
+      <% session.suc=undefined%>
+      <% } %>
+    
+    <div class="allMemories">
+      <% if(allmemory)for(let i=0;i<allmemory.length;i++) {%>
+      <div class="memoryCont">
+        <form action="/memories/<%=allmemory[i].id%>"  name="addImage"  method="POST" enctype="multipart/form-data">
+
+          <div class="image-upload">
+            <p>Add an image</p>
+            <label for="file-input" style="font-size: 18px;
+            width: 0;
+            height: 0;
+            position: relative;
+            display: block;">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </label>
+            <input id="file-input" id="ooo" type="file" name="addImage" accept="image/*" required style="opacity: 0;">
+
+
+            <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+              
+            <input type="submit" value="save the image" style="    background: transparent;
+            border: unset;
+            color: white;
+            font-size: 20px;" name="addImageS">
+<% }else {%>
+                  
+                  <input type="submit" value="save the image" style="    background: transparent;
+                  border: unset;
+                  color: white;
+                  font-size: 20px;" name="addImageS" disabled>
+                 <% } %>
+            
+
+          </div>
+        </form>
+        <div class="memoryContent">
+          <div class="swiper mySwiper  imagesContainer">
+            <div class="swiper-wrapper">
+              <%if(allmemory[i].links)for(let j=0;j<allmemory[i].links.length;j++){ %>
+              <div class="swiper-slide image">
+              
+                <img class="mm" src="/memoryImgs/<%=allmemory[i].links[j].file_src%>">
+                <form class="formDelete" name="deletePhoto" action="/memories/<%=allmemory[i].links[j].linkId%>?_method=DELETE" method="POST">
+                  <div class="row im">
+                    <% var Uc=0;Uc=allmemory[i].city[0].cityid; %>
+                    <p><%= allmemory[i].city[0].cityName%></p>
+                    <% var Ut=0;Ut=allmemory[i].type; %>
+                    <p><%= allmemory[i].type%></p>
+
+
+                    <%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+              
+                      
+                    <input type="submit" class="fa del input" value="&#xf1f8" name="deletePhoto" >
+
+                         <% }else {%>
+                          
+                          
+                    <input type="submit" class="fa del input" value="&#xf1f8" name="deletePhoto" disabled>
+                 
+                         <% } %>
+                  </div>
+                </form>
+              </div>
+              
+              
+              
+              
+            
+            <%}%>
+          </div>
+          </div>
+          <div class="textContainer">
+            <form class="textContainer" name="updatememory " action="/memories/<%=allmemory[i].id%>" method="POST">
+              <input id="updateheader" type="text" class="input date te" value="<%=allmemory[i].memoryName%>" name="updateheaders" placeholder="updateheader">
+              <input id="updateDate"  type="text" class="input date te updateDateMM" value="" name="updateDate" placeholder="updateDate">             
+              <script>
+                document.querySelectorAll(".updateDateMM")[<%=i%>].value=formatDate("<%=allmemory[i].date%>")
+              </script>
+              <div class="row teee">
+                <textarea id="updateStory" class="input story te" type="text" value="<%=allmemory[i].story%>" name="updatestory" rows="4" cols="150" name="updateStory"><%=allmemory[i].story%></textarea>
+
+
+                <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+              
+                      
+                <input type="submit" class="fa input te eddel" value="&#xf00c" name="updatememory">
+
+                       <% }else {%>
+                        
+                        
+                <input type="submit" class="fa input te eddel" value="&#xf00c" name="updatememory" disabled>
+               
+                       <% } %>
+              </div>
+            </form>
+
+            <div class="users">
+              <% var U=[]; %>
+              <% U=[];if(allmemory[i].user)for(let j=0;j<allmemory[i].user.length;j++) {%>
+                <p><%=allmemory[i].user[j].firstName %></p>
+                <% U.push(allmemory[i].user[j].userId); %>
+                <% } %>
+            </div>
+            <div class="row norow">
+              <form class="formDelete"  action="/memories/<%=allmemory[i].id%>?_method=DELETE" method="post">
+<%if((session.guest&&session.cC)||(session.guest===undefined)) {%>
+              
+
+                <input type="submit" name="deletememory" class="fa input eddel" value="&#xf1f8">
+
+                         <% }else {%>
+                          
+                          
+                <input type="submit" name="deletememory" class="fa input eddel" value="&#xf1f8" disabled>
+                 
+                         <% } %>
+              </form>
+              <div class="content">
+                <a href="#" onclick="toggle2(<%=allmemory[i].id%>)"><i class='fa fa-edit eddel'></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+<%}%>
+      
+    </div>
+    <div class="content">
+      <a href="#" class="ad" onclick="toggle()">Add more memories !</a>
+    </div>
+</div>
+      <div id="popup2">
+        <div class="headerAdd">
+          <h1>Update memory</h1>
+          <div class="photoes"></div>
+        </div>
+        <div class="updateBox">
+          <form id="formUpdate" action="/memories" method="POST">
+            <div class="three">
+              <label for="tagFriendUpdate">Tag your friend</label>
+              <div class="tagFriendUpdate">
+                <select id="multipleSelect" multiple name="users" placeholder="Native Select" data-search="true" data-silent-initial-value-set="true">
+                  <% var f=0;if(users)for(let i=0;i<users.length;i++) { f=0;%>
+
+                    <%if(U)for(let j=0;j<U.length;j++) {%>
+                      <% if(users[i].userId===U[j]) {%>
+                        <option selected value="<%=users[i].userId%>"><%=users[i].firstName%></option>
+                        <% f=1;break; %>
+                        <% }%>
+                         
+                      <% } %> 
+                      <% if(f===0) {%><option  value="<%=users[i].userId%>"><%=users[i].firstName%></option><% } %>
+                  <% } %>
+                </select>
+              </div>
+            </div>
+            <div class="four">
+              <label for="memorytype">update the type</label>
+              <div class="memorytype">
+                <select class="sample-select" name="typeSelect">
+                  <%  if(types)for(let i=1;i<types.length;i++) { %>
+                  <% if(Ut===types[i]) {%>
+                  <option selected value="<%=i%>"><%= types[i]%></option>
+                  <% } else {%>
+                    <option value="<%=i%>"><%= types[i]%></option>
+                    <% } %>
+                  <% } %>
+                </select>
+              </div>
+            </div>
+            <div class="five">
+              <label for="eventName">update the event </label>
+              <!--disable if type is not event-->
+              <div class="eventName">
+                <select class="sample-select" name="eventNameSelect">
+                  <option value="0" selected>Related to an event !</option>
+                  <%if(event) for(let i=0;i<event.length;i++){ %>
+           
+                  <option value="<%=event[i].eventId%>"><%=event[i].eventName%></option>
+                  <% }%>
+                </select>
+              </div>
+            </div>
+            <div class="six">
+              <label for="memoryCity">update the city</label>
+              <div class="memoryCity">
+                <select class="sample-select" name="citySelect">
+                  <% if(city)for(let i=0;i<city.length;i++) { %>
+                    <% if(Uc===city[i].cityid) {%>
+                      <option selected value="<%=city[i].cityid%>"><%= city[i].cityName%> </option>
+                  <% } else {%>
+                    <option  value="<%=city[i].cityid%>"><%= city[i].cityName%> </option>
+                        <% } %>
+                  <% }%>
+                </select>
+              </div>
+            </div>
+
+            <%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+              
+                      
+            <input name="updatememory0" class="submit" type="submit" value="Save">
+          
+<% }else {%>
+                        
+                        
+            <input name="updatememory0" class="submit" type="submit" value="Save" disabled>
+               
+                       <% } %>
+          
+        <a href="#" onclick="toggle2()" class="submit close" style="grid-area: close;">Close</a></form>
+        </div>
+      </div>
+
+
+
+      <div id="popup" class="AddMemory">
+        <div class="headerAdd">
+          <h1>Add memory</h1>
+          <div class="photoes"></div>
+        </div>
+        <div class="addBox">
+          <form id="formAdd" action="/memories" method="POST">
+              <div class="zero" style="grid-area: z;">
+              <label for="addmemname">Add Memroy Name</label>
+              <input class="input" id="addmemname" type="text" name="addmemname">
+            </div>
+            <div class="one">
+              <label for="addStory">Add story</label>
+              <input class="input" id="addStory" type="text" name="addStory">
+            </div>
+            <div class="two">
+              <label for="addDate">Add date</label>
+              <input class="input" id="addDate" type="text" name="addDate">
+            </div>
+            <div class="three">
+              <label for="tagFriend">Tag your friend</label>
+              <div class="tagFriend">
+                <select id="multipleSelect" name="TAGS"  placeholder="TAGS" multiple name="native-select" data-search="true" data-silent-initial-value-set="true">
+                  <% if(users)for(let i=0;i<users.length;i++) { %>
+                  <option value="<%=users[i].userId%>"><%=users[i].firstName%></option>
+                  <% } %>
+                </select>
+              </div>
+            </div>
+            <div class="four">
+              <label for="memorytype">choose the type</label>
+              <div class="memorytype">
+                <select class="sample-select" name="typeSelect">
+                  <%  if(types)for(let i=1;i<types.length;i++) { %>
+                    <% %>
+                 
+                    <option value="<%=i%>"><%= types[i]%></option>
+                  <% } %>
+                </select>
+              </div>
+            </div>
+            <div class="five">
+              <label for="eventName">choose an event</label>
+              <!--disable if type is not event-->
+              <div class="eventName">
+                <select class="sample-select" name="eventNameSelect">
+                  <option value="0" selected>Related to an event !</option>
+                  <% if(event)for(let i=0;i<event.length;i++){ %>
+                  
+                  <option value="<%=event[i].eventId%>"><%=event[i].eventName%></option>
+                  <% }%>
+                </select>
+              </div>
+            </div>
+            <div class="six">
+              <label for="memoryCity">choose the city</label>
+              <div class="memoryCity">
+                <select class="sample-select" name="citySelect">
+                  <option value=""></option>
+                  <% if(city)for(let i=0;i<city.length;i++) { %>
+                 
+                  <option value="<%=city[i].cityid%>"><%= city[i].cityName%> </option>
+                  <% }%>
+                </select>
+              </div>
+            </div>
+<%if((session.guest&&session.bB)||(session.guest===undefined)) {%>
+              
+
+            <input class="submit" name="addMemory" type="submit">
+
+<% }else {%>
+                          
+                          
+            <input class="submit" name="addMemory" type="submit" disabled>
+                 
+                         <% } %>
+
+        <a href="#" onclick="toggle()" class="submit close" style="grid-area: close;">Close</a>
+          </form>
+        </div>
+      </div>
+
+      <script src="js/bundle.min.js"></script>
+      <script src="/js/index1.js"></script>
+      <script src="js/virtual-select.min.js"></script>
+      <script>
+        VirtualSelect.init({
+          ele: '#multipleSelect',
+          multiple: true,
+          search: true,
+        });
+        VirtualSelect.init({
+          ele: '.sample-select',
+          search: true,
+        });
+      </script>
+</body>
+
+
+</html>
+<!--
+    اضافة ذكرى
+    تعديل الذكرى بنفس اسلوب الاضافة
+    امكانبة حذف ذكرى
+    عرض الذكريات بترتيب التاريخ
+-->
